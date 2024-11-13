@@ -200,7 +200,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="reg_pushButton">
          <property name="text">
           <string>注册</string>
          </property>

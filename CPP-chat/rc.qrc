@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>res/hhh.jpg</file>
+        <file>style/stylesheet.qss</file>
     </qresource>
 </RCC>
