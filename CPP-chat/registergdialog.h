@@ -2,6 +2,7 @@
 #define REGISTERGDIALOG_H
 
 #include <QDialog>
+#include "global.h"
 
 namespace Ui {
 class RegistergDialog;
@@ -15,7 +16,11 @@ public:
     explicit RegistergDialog(QWidget *parent = nullptr);
     ~RegistergDialog();
 
+private slots:
+    void on_get_code_clicked();
+
 private:
+    void showTip(QString str, bool b_ok);
     Ui::RegistergDialog *ui;
 };
 

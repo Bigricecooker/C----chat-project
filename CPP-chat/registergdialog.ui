@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>597</height>
+    <width>310</width>
+    <height>824</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -40,6 +40,43 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QWidget" name="widget" native="true">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <widget class="QLabel" name="err_tip">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="cursor">
+           <cursorShape>SizeVerCursor</cursorShape>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+          <property name="tabletTracking">
+           <bool>true</bool>
+          </property>
+          <property name="focusPolicy">
+           <enum>Qt::FocusPolicy::NoFocus</enum>
+          </property>
+          <property name="contextMenuPolicy">
+           <enum>Qt::ContextMenuPolicy::NoContextMenu</enum>
+          </property>
+          <property name="text">
+           <string>错误信息</string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignmentFlag::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
@@ -85,15 +122,18 @@
      </item>
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
+       <property name="spacing">
+        <number>7</number>
+       </property>
        <item>
-        <widget class="QLabel" name="ack_label">
+        <widget class="QLabel" name="confirm_label">
          <property name="text">
           <string>确认：</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QLineEdit" name="ack_lineEdit"/>
+        <widget class="QLineEdit" name="confirm_lineEdit"/>
        </item>
       </layout>
      </item>

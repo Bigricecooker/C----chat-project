@@ -15,29 +15,33 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     //创建一个CentralWidget, 并将其设置为MainWindow的中心部件
-    _login_dlg = new LoginDialog();
+    _login_dlg = new LoginDialog(this);
     setCentralWidget(_login_dlg);
-    _login_dlg->show();
+    //_login_dlg->show();
 
     // 创建和注册消息链接
     connect(_login_dlg, &LoginDialog::switchRegister,this, &MainWindow::SlotSwitchReg);// 连接登录界面发出的进入注册界面信号和进入注册界面槽函数
-    _reg_dlg=new RegistergDialog();
+    _reg_dlg=new RegistergDialog(this);
+
+    // 用于父窗口隐藏？
+    _login_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    _reg_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    _reg_dlg->hide();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
-    if(_login_dlg)
-    {
-        delete _login_dlg;
-        _login_dlg=nullptr;
-    }
-
-    if(_reg_dlg)
-    {
-        delete _reg_dlg;
-        _reg_dlg=nullptr;
-    }
+    // if(_login_dlg)
+    // {
+    //     delete _login_dlg;
+    //     _login_dlg=nullptr;
+    // }
+    // if(_reg_dlg)
+    // {
+    //     delete _reg_dlg;
+    //     _reg_dlg=nullptr;
+    // } // 设置父窗口后不需要单独清理动态内存了
 }
 
 void MainWindow::SlotSwitchReg()
