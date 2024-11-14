@@ -10,7 +10,8 @@ LoginDialog::LoginDialog(QWidget *parent)
     // 设置密码模式
     ui->pass_lineEdit->setEchoMode(QLineEdit::Password);
 
-    connect(ui->reg_pushButton,&QPushButton::clicked,this,&LoginDialog::switchRegister);// 点击注册按钮发出进入注册界面信号
+    // 点击注册按钮发出进入注册界面信号
+    connect(ui->reg_pushButton,&QPushButton::clicked,this,&LoginDialog::switchRegister);
 }
 
 LoginDialog::~LoginDialog()

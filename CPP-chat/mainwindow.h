@@ -21,6 +21,7 @@ public:
 
 public slots:
     void SlotSwitchReg();// 进入注册界面槽函数
+    void SlotSwitchLog();// 进入登录界面槽函数
 
 private:
     Ui::MainWindow *ui;
