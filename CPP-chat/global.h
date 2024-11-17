@@ -15,7 +15,9 @@
 #include <QUrl>
 #include <QObject>
 #include <QNetworkAccessManager>
-#include "singleton.h"
+#include <QDir>
+#include <QSettings>
+
 
 // 用于刷新qss
 extern std::function<void(QWidget*)> repolish;
@@ -37,5 +39,7 @@ enum ErrorCodes{
     ERR_JSON = 1, //Json解析失败
     ERR_NETWORK = 2,//网络错误
 };
+
+extern QString gate_url_prefix;
 
 #endif // GLOBAL_H

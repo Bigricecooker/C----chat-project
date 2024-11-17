@@ -1,6 +1,7 @@
 #ifndef HTTPMGR_H
 #define HTTPMGR_H
 #include "global.h"
+#include "singleton.h"
 
 class HttpMgr:public QObject, public Singleton<HttpMgr>,public std::enable_shared_from_this<HttpMgr>
 {
@@ -8,14 +9,14 @@ class HttpMgr:public QObject, public Singleton<HttpMgr>,public std::enable_share
 
 public:
     ~HttpMgr();
-
+    // 发送http请求
+    void PostHttpReq(QUrl url, QJsonObject json, ReqId req_id, Modules mod);
 private:
     friend class Singleton<HttpMgr>;
     HttpMgr();
     QNetworkAccessManager _manager;
 
-    // 发送http请求
-    void PostHttpReq(QUrl url, QJsonObject json, ReqId req_id, Modules mod);
+
 
 private slots:
     // http请求完后处理
