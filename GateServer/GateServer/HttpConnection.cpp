@@ -61,12 +61,14 @@ void HttpConnection::HandleReq()
 {
 	// 设置版本
 	_response.version(_request.version());
+
 	//设置为短链接
 	_response.keep_alive(false);
+
 	// GET请求
 	if (_request.method() == http::verb::get)
 	{
-		bool success = LogicSystem::GetInstance()->HandleGet(_request.target(),shared_from_this());
+		bool success = LogicSystem::GetInstance()->HandleGet(_request.target(),shared_from_this());// target：包含路径之后的
 		if (!success)
 		{
 			// 设置状态码
@@ -79,6 +81,28 @@ void HttpConnection::HandleReq()
 			WriteResponse();
 			return;
 		}
+		_response.result(http::status::ok);
+		_response.set(http::field::server, "GateServer");
+		WriteResponse();
+		return;
+	}
+	// POST请求
+	if (_request.method() == http::verb::post)
+	{
+		bool success = LogicSystem::GetInstance()->HandlePost(_request.target(), shared_from_this());
+		if (!success)
+		{
+			// 设置状态码
+			_response.result(http::status::not_found);
+			// 设置回应类型
+			_response.set(http::field::content_type, "text/plain");// 文本类型
+			// 响应体
+			beast::ostream(_response.body()) << "url not found\r\n";
+			// 回包
+			WriteResponse();
+			return;
+		}
+
 		_response.result(http::status::ok);
 		_response.set(http::field::server, "GateServer");
 		WriteResponse();

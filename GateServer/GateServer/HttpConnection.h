@@ -12,7 +12,7 @@ public:
 private:
 	void CheckDeadline();// 定时器
 	void WriteResponse();// 应答
-	void HandleReq();// 处理请求
+	void HandleReq();// 处理注册请求
 	tcp::socket _socket;
 
 	beast::flat_buffer _buffer{ 8192 };// 用来接受数据
