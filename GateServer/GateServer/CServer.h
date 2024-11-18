@@ -2,7 +2,7 @@
 #include "const.h"
 #include "HttpConnection.h"
 
-// 监听连接
+// 监听连接类
 class CServer :public std::enable_shared_from_this<CServer>
 {
 public:

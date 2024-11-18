@@ -3,6 +3,8 @@
 #include <mutex>
 #include <iostream>
 using namespace std;
+
+// µ¥ÀıÄ£°åÀà
 template <typename T>
 class Singleton {
 protected:

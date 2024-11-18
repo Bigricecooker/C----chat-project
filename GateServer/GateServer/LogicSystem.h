@@ -4,6 +4,8 @@
 
 class HttpConnection;
 typedef std::function<void(std::shared_ptr<HttpConnection>)> HttpHandler;// 执行函数
+
+// 逻辑处理类
 class LogicSystem :public Singleton<LogicSystem>
 {
 	friend class Singleton;

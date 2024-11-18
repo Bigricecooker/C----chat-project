@@ -1,7 +1,8 @@
 #pragma once
 #include "const.h"
 class LogicSystem;
-// ¼àÌı¶ÁĞ´
+
+// ¼àÌı¶ÁĞ´Àà
 class HttpConnection :public std::enable_shared_from_this<HttpConnection>
 {
 public:

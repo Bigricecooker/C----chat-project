@@ -3,11 +3,15 @@
 #include <json/value.h>
 #include <json/reader.h>
 #include "CServer.h"
+#include "ConfigMgr.h"
 int main()
 {
+    // 用于读取配置文件
+    ConfigMgr gCfgMgr;
     try 
     {
-        unsigned short port = static_cast<unsigned short>(11111);
+        std::string gate_port_str = gCfgMgr["GateServer"]["Port"];
+        unsigned short gate_port = atoi(gate_port_str.c_str());
         net::io_context ioc{ 1 };
         boost::asio::signal_set signals(ioc, SIGINT, SIGTERM);
         signals.async_wait([&ioc](const boost::system::error_code&error,int signal_number)// 这里就是那两个auto的意思
@@ -20,7 +24,10 @@ int main()
                 ioc.stop();
             });
 
-        std::make_shared<CServer>(ioc, port)->Start();
+        std::make_shared<CServer>(ioc, gate_port)->Start();
+        std::cout << "///////////////////////////////////" << gate_port << std::endl;
+        std::cout << "Gate Server listen on port:" << gate_port << std::endl;
+        std::cout << "///////////////////////////////////" << gate_port << std::endl << std::endl << std::endl;
         ioc.run();
     }
     catch (std::exception const& e)
