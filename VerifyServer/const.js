@@ -4,4 +4,6 @@ const Errors = {
     RedisErr : 1,
     Exception : 2,
 };
+
+// 导出，使其他js文件可以使用
 module.exports = {code_prefix,Errors}
