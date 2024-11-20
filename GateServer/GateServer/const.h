@@ -5,6 +5,7 @@
 #include <memory>
 #include <iostream>
 #include <map>
+#include <vector>
 #include <functional>
 #include <json/json.h>
 #include <json/value.h>
