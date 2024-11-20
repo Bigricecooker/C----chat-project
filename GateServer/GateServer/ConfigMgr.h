@@ -48,7 +48,7 @@ public:
         return _config_map[section];
     }
 
-    ConfigMgr& operator=(const ConfigMgr& src) {
+    /*ConfigMgr& operator=(const ConfigMgr& src) {
         if (&src == this) {
             return *this;
         }
@@ -57,11 +57,21 @@ public:
 
     ConfigMgr(const ConfigMgr& src) {
         this->_config_map = src._config_map;
-    }
+    }*/
 
+
+    ConfigMgr& operator=(const ConfigMgr& src) = delete;
+    ConfigMgr(const ConfigMgr& src) = delete;
+
+    // 实现单例
+    static ConfigMgr& Inst()
+    {
+        static ConfigMgr cfg_mgr;
+        return cfg_mgr;
+    }
+private:
     // 构造函数里实现config读取
     ConfigMgr();
-private:
     // 存储section和key-value对的map  
     std::map<std::string, SectionInfo> _config_map;
 };

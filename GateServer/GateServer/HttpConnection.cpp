@@ -1,7 +1,7 @@
 #include "HttpConnection.h"
 #include "LogicSystem.h"
 
-HttpConnection::HttpConnection(tcp::socket socket):_socket(std::move(socket))// socket没有拷贝构造,只有移动构造
+HttpConnection::HttpConnection(/*tcp::socket socket*/boost::asio::io_context& io_context):_socket(io_context/*std::move(socket)*/)// socket没有拷贝构造,只有移动构造
 {
 }
 
@@ -30,6 +30,11 @@ void HttpConnection::Start()
 				std::cout << "exception is " << exp.what() << std::endl;
 			}
 		});
+}
+
+tcp::socket& HttpConnection::GetSocket()
+{
+	return _socket;
 }
 
 void HttpConnection::CheckDeadline()

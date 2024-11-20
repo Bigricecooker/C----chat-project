@@ -25,7 +25,3 @@ enum ErrorCodes {
 	Error_json=1001,
 	RPCFailed=1002,
 };
-
-// 用于读取配置文件
-class ConfigMgr;
-extern ConfigMgr gCfgMgr;

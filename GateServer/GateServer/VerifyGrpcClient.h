@@ -11,6 +11,7 @@ using message::GetVarifyReq;
 using message::GetVarifyRsp;
 using message::VarifyService;
 
+// grpc¿Í»§¶Ë
 class VerifyGrpcClient :public Singleton<VerifyGrpcClient>
 {
 	friend class Singleton<VerifyGrpcClient>;

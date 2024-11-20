@@ -18,7 +18,7 @@ public:
 	boost::asio::io_context& GetIOService();// ·µ»ØÒ»¸öio_context
 	void Stop();
 private:
-	AsioIOServicePool(std::size_t size);
+	AsioIOServicePool(std::size_t size=2);
 	std::vector<IOService> _ioServices;
 	std::vector<WorkPtr> _works;
 	std::vector<std::thread> _threads;
