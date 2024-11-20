@@ -13,6 +13,10 @@
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <atomic>
+#include <queue>
+#include <mutex>
+#include <condition_variable>
 
 namespace beast = boost::beast;
 namespace http = beast::http;
