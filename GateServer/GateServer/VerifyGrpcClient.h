@@ -28,8 +28,8 @@ public:
 	// 回收存根
 	void returnConnection(std::unique_ptr<VarifyService::Stub> context);
 private:
-	atomic<bool> _b_stop;// 标识是否需要回收(原子类型)
-	size_t _poolSize;// 大小
+	std::atomic<bool> _b_stop;// 标识是否需要回收(原子类型)
+	std::size_t _poolSize;// 大小
 	std::string _host;
 	std::string _port;
 	std::queue<std::unique_ptr<VarifyService::Stub>> _connections;

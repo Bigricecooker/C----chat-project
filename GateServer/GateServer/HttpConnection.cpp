@@ -73,7 +73,9 @@ void HttpConnection::HandleReq()
 	// GET请求
 	if (_request.method() == http::verb::get)
 	{
+		// 逻辑处理
 		bool success = LogicSystem::GetInstance()->HandleGet(_request.target(),shared_from_this());// target：包含路径之后的
+		
 		if (!success)
 		{
 			// 设置状态码
@@ -94,7 +96,9 @@ void HttpConnection::HandleReq()
 	// POST请求
 	if (_request.method() == http::verb::post)
 	{
+		// 逻辑处理
 		bool success = LogicSystem::GetInstance()->HandlePost(_request.target(), shared_from_this());
+
 		if (!success)
 		{
 			// 设置状态码
