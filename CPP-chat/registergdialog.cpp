@@ -29,6 +29,7 @@ RegistergDialog::~RegistergDialog()
     delete ui;
 }
 
+// 点击获取验证码按钮事件
 void RegistergDialog::on_get_code_clicked()//这里是ui界面弄的
 {
     //验证邮箱的地址正则表达式
@@ -49,6 +50,7 @@ void RegistergDialog::on_get_code_clicked()//这里是ui界面弄的
     }
 }
 
+// 收到注册完成事件
 void RegistergDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
 {
     if(err != ErrorCodes::SUCCESS){
@@ -69,12 +71,13 @@ void RegistergDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
     }
     QJsonObject jsonObj = jsonDoc.object();
 
-    //调用对应的逻辑,根据id回调。
+    //调用对应的逻辑,根据id回调（initHttpHandlers中注册的）
     _handlers[id](jsonDoc.object());
     return;
 
 }
 
+// 错误信息显示
 void RegistergDialog::showTip(QString str,bool b_ok)
 {
     // 修改状态
@@ -90,9 +93,10 @@ void RegistergDialog::showTip(QString str,bool b_ok)
     repolish(ui->err_tip);
 }
 
+// 注册消息处理
 void RegistergDialog::initHttpHandlers()
 {
-    //注册获取验证码回包逻辑
+    // 注册获取验证码回包逻辑
     _handlers.insert(ReqId::ID_GET_VARIFY_CODE, [this](QJsonObject jsonObj){
         int error = jsonObj["error"].toInt();
         if(error != ErrorCodes::SUCCESS){
@@ -103,5 +107,68 @@ void RegistergDialog::initHttpHandlers()
         showTip(tr("验证码已发送到邮箱，注意查收"), true);
         qDebug()<< "email is " << email ;
     });
+
+    // 注册注册用户回包逻辑
+    _handlers.insert(ReqId::ID_REG_USER,[this](QJsonObject jsonObj){
+        int error = jsonObj["error"].toInt();
+        if(error != ErrorCodes::SUCCESS){
+            showTip(tr("参数错误"),false);
+            return;
+        }
+        auto email = jsonObj["email"].toString();
+        auto user = jsonObj["user"].toString();
+        showTip(tr("用户注册成功"), true);
+        qDebug()<< "email is " << email ;
+    });
+}
+
+// 点击确认注册按钮事件
+void RegistergDialog::on_confirm_pushButton_clicked()
+{
+    if(ui->user_lineEdit->text()=="")
+    {
+        showTip(tr("用户名不能为空"), false);
+        return;
+    }
+
+    if(ui->email_lineEdit->text()=="")
+    {
+        showTip(tr("邮箱不能为空"), false);
+        return;
+    }
+
+    if(ui->pass_lineEdit->text()=="")
+    {
+        showTip(tr("密码不能为空"), false);
+        return;
+    }
+
+    if(ui->confirm_lineEdit->text()=="")
+    {
+        showTip(tr("确认密码不能为空"), false);
+        return;
+    }
+
+    if(ui->confirm_lineEdit->text()!=ui->pass_lineEdit->text())
+    {
+        showTip(tr("确认密码和密码不匹配"), false);
+        return;
+    }
+
+    if(ui->ver_lineEdit->text()=="")
+    {
+        showTip(tr("验证码不能为空"), false);
+        return;
+    }
+
+    // 发送http请求注册账号
+    QJsonObject json_obj;
+    json_obj["user"]=ui->user_lineEdit->text();
+    json_obj["email"] = ui->email_lineEdit->text();
+    json_obj["passwd"] = ui->pass_lineEdit->text();
+    json_obj["confirm"] = ui->confirm_lineEdit->text();
+    json_obj["verifycode"] = ui->ver_lineEdit->text();
+    HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix+"/user_register"),
+                                        json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
 }
 

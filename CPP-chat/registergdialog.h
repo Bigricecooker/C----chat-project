@@ -24,8 +24,10 @@ private slots:
     void on_get_code_clicked();// 点击获取验证码按钮事件
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到注册完成事件
 
+    void on_confirm_pushButton_clicked();
+
 private:
-    void showTip(QString str, bool b_ok);
+    void showTip(QString str, bool b_ok);// 错误信息显示
     void initHttpHandlers();// 注册消息处理
     Ui::RegistergDialog *ui;
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
