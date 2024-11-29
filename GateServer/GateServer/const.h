@@ -18,6 +18,12 @@
 #include <mutex>
 #include <condition_variable>
 #include "hiredis.h"
+#include <jdbc/mysql_driver.h>
+#include <jdbc/mysql_connection.h>
+#include <jdbc/cppconn/prepared_statement.h>
+#include <jdbc/cppconn/resultset.h>
+#include <jdbc/cppconn/statement.h>
+#include <jdbc/cppconn/exception.h>
 
 namespace beast = boost::beast;
 namespace http = beast::http;

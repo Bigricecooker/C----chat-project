@@ -1,10 +1,14 @@
-﻿  LogicSystem.cpp
+﻿  MySqlPool.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+D:\git_repo\C----chat-project\GateServer\GateServer\MySqlPool.cpp(17,28): warning C4101: “e”: 未引用的局部变量
   GateServer.vcxproj -> D:\git_repo\C----chat-project\GateServer\x64\Debug\GateServer.exe
   D:\git_repo\C----chat-project\GateServer\GateServer\config.ini
   复制了 1 个文件
-  复制了 0 个文件
-  找不到文件 - *.dll
+  D:\git_repo\C----chat-project\GateServer\GateServer\libcrypto-3-x64.dll
+  D:\git_repo\C----chat-project\GateServer\GateServer\libssl-3-x64.dll
+  D:\git_repo\C----chat-project\GateServer\GateServer\mysqlcppconn-9-vs14.dll
+  D:\git_repo\C----chat-project\GateServer\GateServer\mysqlcppconn8-2-vs14.dll
+  复制了 4 个文件

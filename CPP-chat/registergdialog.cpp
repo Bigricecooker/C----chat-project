@@ -117,7 +117,9 @@ void RegistergDialog::initHttpHandlers()
         }
         auto email = jsonObj["email"].toString();
         auto user = jsonObj["user"].toString();
+        auto uid = jsonObj["uid"].toString();
         showTip(tr("用户注册成功"), true);
+        qDebug()<< "user uid is " << uid ;
         qDebug()<< "email is " << email ;
     });
 }
