@@ -4,7 +4,15 @@
 #include <QDialog>
 #include "global.h"
 #include "httpmgr.h"
-
+/******************************************************************************
+ *
+ * @file       registergdialog.h
+ * @brief      注册界面
+ *
+ * @author     Bigricecooker
+ * @date       2024/11/13
+ * @history
+ *****************************************************************************/
 namespace Ui {
 class RegistergDialog;
 }

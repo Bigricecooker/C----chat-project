@@ -3,6 +3,16 @@
 #include "global.h"
 #include "singleton.h"
 
+/******************************************************************************
+ *
+ * @file       httpmgr.h
+ * @brief      http请求
+ *
+ * @author     Bigricecooker
+ * @date       2024/11/14
+ * @history
+ *****************************************************************************/
+
 class HttpMgr:public QObject, public Singleton<HttpMgr>,public std::enable_shared_from_this<HttpMgr>
 {
     Q_OBJECT

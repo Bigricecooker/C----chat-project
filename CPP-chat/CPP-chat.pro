@@ -14,7 +14,8 @@ SOURCES += \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
-    registergdialog.cpp
+    registergdialog.cpp \
+    timberbtn.cpp
 
 RC_ICONS = QQ.ico
 DESTDIR = ./bin
@@ -25,7 +26,8 @@ HEADERS += \
     logindialog.h \
     mainwindow.h \
     registergdialog.h \
-    singleton.h
+    singleton.h \
+    timberbtn.h
 
 FORMS += \
     logindialog.ui \

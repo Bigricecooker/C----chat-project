@@ -18,7 +18,15 @@
 #include <QDir>
 #include <QSettings>
 
-
+/******************************************************************************
+ *
+ * @file       global.h
+ * @brief      各种枚举值和全局变量
+ *
+ * @author     Bigricecooker
+ * @date       2024/11/14
+ * @history
+ *****************************************************************************/
 // 用于刷新qss
 extern std::function<void(QWidget*)> repolish;
 
