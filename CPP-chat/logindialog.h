@@ -3,7 +3,15 @@
 
 #include <QDialog>
 #include <QPushButton>
-
+/******************************************************************************
+ *
+ * @file       logindialog.h
+ * @brief      登陆界面
+ *
+ * @author     Bigricecooker
+ * @date       2024/11/12
+ * @history
+ *****************************************************************************/
 namespace Ui {
 class LoginDialog;
 }

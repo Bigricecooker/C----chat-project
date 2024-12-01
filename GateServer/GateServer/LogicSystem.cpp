@@ -155,7 +155,8 @@ LogicSystem::LogicSystem()
         }
 
         root["error"] = 0;
-        root["email"] = src_root["email"];
+        root["email"] = src_root["email"].asString();
+        root["uid"] = src_root["uid"].asString();
         root["user"] = src_root["user"].asString();
         root["passwd"] = src_root["passwd"].asString();
         root["confirm"] = src_root["confirm"].asString();

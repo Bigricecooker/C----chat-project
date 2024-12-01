@@ -167,8 +167,9 @@ void RegistergDialog::on_confirm_pushButton_clicked()
     QJsonObject json_obj;
     json_obj["user"]=ui->user_lineEdit->text();
     json_obj["email"] = ui->email_lineEdit->text();
-    json_obj["passwd"] = ui->pass_lineEdit->text();
-    json_obj["confirm"] = ui->confirm_lineEdit->text();
+    // 不发送明文，加密发送
+    json_obj["passwd"] = md5Encrypt(ui->pass_lineEdit->text());
+    json_obj["confirm"] = md5Encrypt(ui->confirm_lineEdit->text());
     json_obj["verifycode"] = ui->ver_lineEdit->text();
     HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix+"/user_register"),
                                         json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);

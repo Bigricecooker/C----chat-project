@@ -30,6 +30,9 @@
 // 用于刷新qss
 extern std::function<void(QWidget*)> repolish;
 
+// md5用于加密密码
+extern std::function<QString(QString)> md5Encrypt;
+
 // 功能
 enum ReqId{
     ID_GET_VARIFY_CODE = 1001, //获取验证码
