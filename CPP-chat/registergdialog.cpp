@@ -21,7 +21,27 @@ RegistergDialog::RegistergDialog(QWidget *parent)
     // 点击取消按钮发出进入登录界面信号
     connect(ui->cancel_pushButton,&QPushButton::clicked,this,&RegistergDialog::switchLogin);
 
+    // 注册消息处理
     initHttpHandlers();
+
+    // 输入框错误提示
+    ui->err_tip->clear();
+    connect(ui->user_lineEdit,&QLineEdit::editingFinished,this,[this](){
+        checkUserValid();
+    });
+    connect(ui->pass_lineEdit,&QLineEdit::editingFinished,this,[this](){
+        checkPassValid();
+    });
+    connect(ui->email_lineEdit,&QLineEdit::editingFinished,this,[this](){
+        checkEmailValid();
+    });
+    connect(ui->confirm_lineEdit,&QLineEdit::editingFinished,this,[this](){
+        checkPassandComfirmValid();
+    });
+    connect(ui->ver_lineEdit,&QLineEdit::editingFinished,this,[this](){
+        checkVerifyValid();
+    });
+
 }
 
 RegistergDialog::~RegistergDialog()
@@ -124,44 +144,58 @@ void RegistergDialog::initHttpHandlers()
     });
 }
 
+
+
 // 点击确认注册按钮事件
 void RegistergDialog::on_confirm_pushButton_clicked()
 {
-    if(ui->user_lineEdit->text()=="")
-    {
-        showTip(tr("用户名不能为空"), false);
-        return;
-    }
+    // if(ui->user_lineEdit->text()=="")
+    // {
+    //     showTip(tr("用户名不能为空"), false);
+    //     return;
+    // }
+    // if(ui->email_lineEdit->text()=="")
+    // {
+    //     showTip(tr("邮箱不能为空"), false);
+    //     return;
+    // }
+    // if(ui->pass_lineEdit->text()=="")
+    // {
+    //     showTip(tr("密码不能为空"), false);
+    //     return;
+    // }
+    // if(ui->confirm_lineEdit->text()=="")
+    // {
+    //     showTip(tr("确认密码不能为空"), false);
+    //     return;
+    // }
+    // if(ui->confirm_lineEdit->text()!=ui->pass_lineEdit->text())
+    // {
+    //     showTip(tr("确认密码和密码不匹配"), false);
+    //     return;
+    // }
+    // if(ui->ver_lineEdit->text()=="")
+    // {
+    //     showTip(tr("验证码不能为空"), false);
+    //     return;
+    // }
 
-    if(ui->email_lineEdit->text()=="")
-    {
-        showTip(tr("邮箱不能为空"), false);
-        return;
-    }
+    bool valid = checkUserValid();
+    if(!valid) return;
 
-    if(ui->pass_lineEdit->text()=="")
-    {
-        showTip(tr("密码不能为空"), false);
-        return;
-    }
+    valid=checkEmailValid();
+    if(!valid) return;
 
-    if(ui->confirm_lineEdit->text()=="")
-    {
-        showTip(tr("确认密码不能为空"), false);
-        return;
-    }
+    valid=checkPassValid();
+    if(!valid) return;
 
-    if(ui->confirm_lineEdit->text()!=ui->pass_lineEdit->text())
-    {
-        showTip(tr("确认密码和密码不匹配"), false);
-        return;
-    }
+    valid=checkPassandComfirmValid();
+    if(!valid) return;
 
-    if(ui->ver_lineEdit->text()=="")
-    {
-        showTip(tr("验证码不能为空"), false);
-        return;
-    }
+    valid=checkVerifyValid();
+    if(!valid) return;
+
+
 
     // 发送http请求注册账号
     QJsonObject json_obj;
@@ -174,4 +208,94 @@ void RegistergDialog::on_confirm_pushButton_clicked()
     HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix+"/user_register"),
                                         json_obj, ReqId::ID_REG_USER,Modules::REGISTERMOD);
 }
+
+// 添加错误
+void RegistergDialog::AddTipErr(TipErr te, QString tips)
+{
+    _tip_errs[te] = tips;
+    showTip(tips, false);
+}
+// 删除错误
+void RegistergDialog::DelTipErr(TipErr te)
+{
+    _tip_errs.remove(te);
+    if(_tip_errs.empty()){
+        ui->err_tip->clear();
+        return;
+    }
+    showTip(_tip_errs.first(), false);
+}
+
+// 各种输入框错误提示
+bool RegistergDialog::checkUserValid()// 用户名
+{
+    if(ui->user_lineEdit->text() == ""){
+        AddTipErr(TipErr::TIP_USER_ERR, tr("用户名不能为空"));
+        return false;
+    }
+    DelTipErr(TipErr::TIP_USER_ERR);
+    return true;
+}
+bool RegistergDialog::checkPassValid()// 密码
+{
+    auto pass = ui->pass_lineEdit->text();
+    if(pass.length() < 6 || pass.length()>15){
+        //提示长度不准确
+        AddTipErr(TipErr::TIP_PWD_ERR, tr("密码长度应为6~15"));
+        return false;
+    }
+    // 创建一个正则表达式对象，按照上述密码要求
+    // 这个正则表达式解释：
+    // ^[a-zA-Z0-9!@#$%^&*]{6,15}$ 密码长度至少6，可以是字母、数字和特定的特殊字符
+    QRegularExpression regExp("^[a-zA-Z0-9!@#$%^&*]{6,15}$");
+    bool match = regExp.match(pass).hasMatch();
+    if(!match){
+        //提示字符非法
+        AddTipErr(TipErr::TIP_PWD_ERR, tr("不能包含非法字符"));
+        return false;;
+    }
+    DelTipErr(TipErr::TIP_PWD_ERR);
+    return true;
+}
+bool RegistergDialog::checkEmailValid()// 邮箱
+{
+    //验证邮箱的地址正则表达式
+    auto email = ui->email_lineEdit->text();
+    // 邮箱地址的正则表达式
+    QRegularExpression regex(R"((\w+)(\.|_)?(\w*)@(\w+)(\.(\w+))+)");
+    bool match = regex.match(email).hasMatch(); // 执行正则表达式匹配
+    if(!match){
+        //提示邮箱不正确
+        AddTipErr(TipErr::TIP_EMAIL_ERR, tr("邮箱地址不正确"));
+        return false;
+    }
+    DelTipErr(TipErr::TIP_EMAIL_ERR);
+    return true;
+}
+bool RegistergDialog::checkVerifyValid()// 验证码
+{
+    auto pass = ui->ver_lineEdit->text();
+    if(pass.isEmpty()){
+        AddTipErr(TipErr::TIP_VARIFY_ERR, tr("验证码不能为空"));
+        return false;
+    }
+    DelTipErr(TipErr::TIP_VARIFY_ERR);
+    return true;
+}
+
+bool RegistergDialog::checkPassandComfirmValid()// 确认密码
+{
+    auto confirm = ui->confirm_lineEdit->text();
+
+    auto pass = ui->pass_lineEdit->text();
+    if(confirm!=pass)
+    {
+        AddTipErr(TipErr::TIP_PWD_CONFIRM, tr("确认密码与密码不一致"));
+        return false;
+    }
+
+    DelTipErr(TipErr::TIP_PWD_CONFIRM);
+    return true;
+}
+
 

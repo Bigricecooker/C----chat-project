@@ -37,8 +37,18 @@ private slots:
 private:
     void showTip(QString str, bool b_ok);// 错误信息显示
     void initHttpHandlers();// 注册消息处理
+    // 输入框错误提示
+    bool checkUserValid();
+    bool checkPassValid();
+    bool checkEmailValid();
+    bool checkVerifyValid();
+    bool checkPassandComfirmValid();
+    void AddTipErr(TipErr te, QString tips);// 添加错误
+    void DelTipErr(TipErr te);// 删除错误
+
     Ui::RegistergDialog *ui;
-    QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;
+    QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;// 消息处理集合
+    QMap<TipErr, QString> _tip_errs;// 错误缓存
 };
 
 #endif // REGISTERGDIALOG_H
