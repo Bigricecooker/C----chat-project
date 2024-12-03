@@ -1,5 +1,6 @@
 #include "registergdialog.h"
 #include "ui_registergdialog.h"
+#include "clickedlabel.h"
 
 
 RegistergDialog::RegistergDialog(QWidget *parent)
@@ -24,7 +25,7 @@ RegistergDialog::RegistergDialog(QWidget *parent)
     // 注册消息处理
     initHttpHandlers();
 
-    // 输入框错误提示
+    // 连接输入框错误提示
     ui->err_tip->clear();
     connect(ui->user_lineEdit,&QLineEdit::editingFinished,this,[this](){
         checkUserValid();
@@ -42,11 +43,48 @@ RegistergDialog::RegistergDialog(QWidget *parent)
         checkVerifyValid();
     });
 
+    // 为两个标签设置鼠标悬停时的光标样式,为手样式
+    ui->pass_visible->setCursor(Qt::PointingHandCursor);
+    ui->confirm_visible->setCursor(Qt::PointingHandCursor);
+
+    ui->confirm_visible->SetState("unvisible","unvisible_hover","unvisible_hover","visible",
+                                  "visible_hover","visible_hover");
+    ui->pass_visible->SetState("unvisible","unvisible_hover","unvisible_hover","visible",
+                               "visible_hover","visible_hover");// 按下和悬停一样
+    // 连接这两个标签的点击事件,切换密码是否可见
+    connect(ui->confirm_visible,&ClickedLabel::clicked,this,[this](){
+        if(ui->confirm_visible->GetCurState()==ClickLbState::Normal)
+        {
+            ui->confirm_lineEdit->setEchoMode(QLineEdit::Password);
+        }
+        else
+        {
+            ui->confirm_lineEdit->setEchoMode(QLineEdit::Normal);
+        }
+    });
+    connect(ui->pass_visible,&ClickedLabel::clicked,this,[this](){
+        if(ui->pass_visible->GetCurState()==ClickLbState::Normal)
+        {
+            ui->pass_lineEdit->setEchoMode(QLineEdit::Password);
+        }
+        else
+        {
+            ui->pass_lineEdit->setEchoMode(QLineEdit::Normal);
+        }
+    });
+
+
 }
 
 RegistergDialog::~RegistergDialog()
 {
     delete ui;
+}
+
+// 切换至注册成功界面
+void RegistergDialog::ChangeTipPage()
+{
+
 }
 
 // 点击获取验证码按钮事件
@@ -141,6 +179,8 @@ void RegistergDialog::initHttpHandlers()
         showTip(tr("用户注册成功"), true);
         qDebug()<< "user uid is " << uid ;
         qDebug()<< "email is " << email ;
+
+        // 切换到注册成功界面
     });
 }
 

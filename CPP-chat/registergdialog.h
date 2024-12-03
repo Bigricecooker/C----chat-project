@@ -28,6 +28,9 @@ public:
     explicit RegistergDialog(QWidget *parent = nullptr);
     ~RegistergDialog();
 
+    // 切换至注册成功界面
+    void ChangeTipPage();
+
 private slots:
     void on_get_code_clicked();// 点击获取验证码按钮事件
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到注册完成事件

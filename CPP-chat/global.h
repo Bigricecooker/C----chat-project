@@ -61,6 +61,12 @@ enum TipErr{
     TIP_VARIFY_ERR = 5,
     TIP_USER_ERR = 6
 };
+
+// Label的两种主要状态
+enum ClickLbState{
+    Normal = 0,
+    Selected = 1
+};
 extern QString gate_url_prefix;
 
 #endif // GLOBAL_H
