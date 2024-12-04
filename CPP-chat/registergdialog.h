@@ -35,11 +35,14 @@ private slots:
     void on_get_code_clicked();// 点击获取验证码按钮事件
     void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到注册完成事件
 
-    void on_confirm_pushButton_clicked();
+    void on_confirm_pushButton_clicked();// 点击确认注册按钮事件
+
+    void on_return_btn_clicked();
 
 private:
     void showTip(QString str, bool b_ok);// 错误信息显示
     void initHttpHandlers();// 注册消息处理
+
     // 输入框错误提示
     bool checkUserValid();
     bool checkPassValid();
@@ -50,8 +53,12 @@ private:
     void DelTipErr(TipErr te);// 删除错误
 
     Ui::RegistergDialog *ui;
+
     QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;// 消息处理集合
     QMap<TipErr, QString> _tip_errs;// 错误缓存
+
+    QTimer * _countdown_timer;// 定时器
+    int _countdown;// 倒计时
 };
 
 #endif // REGISTERGDIALOG_H

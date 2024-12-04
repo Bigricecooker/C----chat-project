@@ -17,6 +17,7 @@
 #include <QNetworkAccessManager>
 #include <QDir>
 #include <QSettings>
+#include <QTimer>
 
 /******************************************************************************
  *

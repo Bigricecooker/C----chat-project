@@ -5,7 +5,7 @@
 
 RegistergDialog::RegistergDialog(QWidget *parent)
     : QDialog(parent)
-    , ui(new Ui::RegistergDialog)
+    , ui(new Ui::RegistergDialog),_countdown(5)
 {
     ui->setupUi(this);
 
@@ -74,6 +74,19 @@ RegistergDialog::RegistergDialog(QWidget *parent)
     });
 
 
+    // 注册成功界面
+    _countdown_timer=new QTimer(this);
+    connect(_countdown_timer,&QTimer::timeout,this,[this](){
+        if(_countdown==0)
+        {
+            _countdown_timer->stop();
+            emit switchLogin();// 发送进入注册界面信号
+            _countdown=5;
+        }
+        _countdown--;
+        auto str = QString("注册成功，%1 s后返回登录界面").arg(_countdown);
+        ui->tip1_lb->setText(str);
+    });
 }
 
 RegistergDialog::~RegistergDialog()
@@ -84,7 +97,10 @@ RegistergDialog::~RegistergDialog()
 // 切换至注册成功界面
 void RegistergDialog::ChangeTipPage()
 {
-
+    _countdown_timer->stop();
+    ui->stackedWidget->setCurrentWidget(ui->page_2);
+    // 启动定时器，设置间隔为1000毫秒（1秒）
+    _countdown_timer->start(1000);
 }
 
 // 点击获取验证码按钮事件
@@ -181,6 +197,7 @@ void RegistergDialog::initHttpHandlers()
         qDebug()<< "email is " << email ;
 
         // 切换到注册成功界面
+        ChangeTipPage();
     });
 }
 
@@ -338,4 +355,11 @@ bool RegistergDialog::checkPassandComfirmValid()// 确认密码
     return true;
 }
 
+
+
+void RegistergDialog::on_return_btn_clicked()
+{
+    _countdown_timer->stop();
+    emit switchLogin();// 发送进入注册界面信号
+}
 

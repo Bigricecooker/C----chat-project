@@ -21,7 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
     // 用于父窗口隐藏？
     _login_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
 
-    // 创建和注册消息链接
+    // 连接进入注册界面信号
     connect(_login_dlg, &LoginDialog::switchRegister,this, &MainWindow::SlotSwitchReg);// 连接登录界面发出的进入注册界面信号和进入注册界面槽函数
 
 
