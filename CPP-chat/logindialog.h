@@ -22,6 +22,7 @@ class LoginDialog : public QDialog
 
 signals:
     void switchRegister();// 进入注册界面信号
+    void switchReset();// 进入重置密码界面信号
 
 public:
     explicit LoginDialog(QWidget *parent = nullptr);

@@ -16,6 +16,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     registergdialog.cpp \
+    resetdialog.cpp \
     timberbtn.cpp
 
 RC_ICONS = QQ.ico
@@ -28,13 +29,15 @@ HEADERS += \
     logindialog.h \
     mainwindow.h \
     registergdialog.h \
+    resetdialog.h \
     singleton.h \
     timberbtn.h
 
 FORMS += \
     logindialog.ui \
     mainwindow.ui \
-    registergdialog.ui
+    registergdialog.ui \
+    resetdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

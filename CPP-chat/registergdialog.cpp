@@ -43,9 +43,6 @@ RegistergDialog::RegistergDialog(QWidget *parent)
         checkVerifyValid();
     });
 
-    // 为两个标签设置鼠标悬停时的光标样式,为手样式
-    ui->pass_visible->setCursor(Qt::PointingHandCursor);
-    ui->confirm_visible->setCursor(Qt::PointingHandCursor);
 
     ui->confirm_visible->SetState("unvisible","unvisible_hover","unvisible_hover","visible",
                                   "visible_hover","visible_hover");

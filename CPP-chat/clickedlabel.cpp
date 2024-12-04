@@ -3,6 +3,9 @@
 
 ClickedLabel::ClickedLabel(QWidget *parent):QLabel(parent),_curstate(ClickLbState::Normal)
 {
+
+    // 为两个标签设置鼠标悬停时的光标样式,为手样式
+    this->setCursor(Qt::PointingHandCursor);
 }
 
 ClickedLabel::~ClickedLabel()
