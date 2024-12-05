@@ -6,7 +6,7 @@
 /******************************************************************************
  *
  * @file       httpmgr.h
- * @brief      http请求
+ * @brief      http请求类
  *
  * @author     Bigricecooker
  * @date       2024/11/14
@@ -36,6 +36,8 @@ signals:
     void sig_http_finish(ReqId id, QString res, ErrorCodes err, Modules mod);
     // 注册完成信号
     void sig_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
+    // 确认重置按钮完成信号
+    void sig_rest_mod_finish(ReqId id, QString res, ErrorCodes err);
 };
 
 #endif // HTTPMGR_H

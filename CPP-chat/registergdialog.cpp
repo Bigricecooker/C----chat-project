@@ -121,7 +121,7 @@ void RegistergDialog::on_get_code_clicked()//这里是ui界面弄的
     }
 }
 
-// 收到注册完成事件
+// 收到注册完成或其他完成事件
 void RegistergDialog::slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err)
 {
     if(err != ErrorCodes::SUCCESS){
@@ -353,10 +353,10 @@ bool RegistergDialog::checkPassandComfirmValid()// 确认密码
 }
 
 
-
+// 点击取消按钮事件
 void RegistergDialog::on_return_btn_clicked()
 {
     _countdown_timer->stop();
-    emit switchLogin();// 发送进入注册界面信号
+    emit switchLogin();// 发送返回登录界面信号
 }
 

@@ -1,9 +1,9 @@
 #include "global.h"
 
+// 实现刷新样式
 std::function<void(QWidget*)> repolish=[](QWidget* w){
     w->style()->unpolish(w);// 移除样式
     w->style()->polish(w);// 应用样式
-    /*上面实现刷新样式*/
 };
 
 // MD5加密

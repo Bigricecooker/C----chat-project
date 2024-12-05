@@ -33,15 +33,15 @@ public:
 
 private slots:
     void on_get_code_clicked();// 点击获取验证码按钮事件
-    void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到注册完成事件
+    void slot_reg_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到注册完成或其他完成事件
 
     void on_confirm_pushButton_clicked();// 点击确认注册按钮事件
 
-    void on_return_btn_clicked();
+    void on_return_btn_clicked();// 返回登陆界面
 
 private:
     void showTip(QString str, bool b_ok);// 错误信息显示
-    void initHttpHandlers();// 注册消息处理
+    void initHttpHandlers();// 注册消息处理回调
 
     // 输入框错误提示
     bool checkUserValid();
