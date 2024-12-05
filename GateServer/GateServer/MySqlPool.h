@@ -37,6 +37,11 @@ public:
 
 	// 注册用户操作
 	int RegUser(const std::string& name, const std::string& email, const std::string& pwd);
+	// 判断用户与邮箱是否对应操作
+	bool CheckEmail(const std::string& name, const std::string& email);
+	// 重置密码
+	bool UpdatePwd(const std::string& name, const std::string& pwd);// 重置密码
+
 private:
 	std::unique_ptr<MySqlPool> _pool;
 };

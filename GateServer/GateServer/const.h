@@ -40,7 +40,7 @@ enum ErrorCodes {
 	UserExist = 1005,// 用户已存在
 	PasswdErr = 1006,// 密码错误
 	EmailNotMatch = 1007,// 邮箱不匹配
-	PasswdUpFiled = 1008,// 更新密码失败
+	PasswdUpFailed = 1008,// 更新密码失败
 	PasswdInvalid = 1009,// 密码更新失败
 };
 

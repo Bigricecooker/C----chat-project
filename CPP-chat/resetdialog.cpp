@@ -188,10 +188,10 @@ void ResetDialog::on_confirm_pushButton_clicked()
 
     // 发送修改密码的http请求
     QJsonObject json_obj;
-    json_obj["user"] = ui->email_lineEdit->text();
+    json_obj["user"] = ui->user_lineEdit->text();
     json_obj["email"] = ui->email_lineEdit->text();
-    json_obj["verifycode"] = ui->email_lineEdit->text();
-    json_obj["newpwd"] = ui->email_lineEdit->text();
+    json_obj["verifycode"] = ui->ver_lineEdit->text();
+    json_obj["newpwd"] = md5Encrypt(ui->newpwd_lineEdit->text());
     HttpMgr::GetInstance()->PostHttpReq(QUrl(gate_url_prefix+"/reset_pwd"),
                                         json_obj,ReqId::ID_RESET_PWD,Modules::RESETMOD);
 }
