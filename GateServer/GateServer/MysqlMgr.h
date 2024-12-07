@@ -3,6 +3,7 @@
 #include "MySqlPool.h"
 #include "singleton.h"
 
+// 数据库连接管理类
 class MysqlMgr :public Singleton<MysqlMgr>
 {
     friend class Singleton<MysqlMgr>;

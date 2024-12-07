@@ -39,7 +39,7 @@ private:
 
 
 
-// grpc客户端 - 单例
+// 发送验证码请求客户端 - 单例
 class VerifyGrpcClient :public Singleton<VerifyGrpcClient>
 {
 	friend class Singleton<VerifyGrpcClient>;

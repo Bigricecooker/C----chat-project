@@ -4,7 +4,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <IncludePath>D:\cppsoft\mysql_connector\include;D:\cppsoft\redis\deps\hiredis;D:\cppsoft\boost_1_81_0;D:\cppsoft\jsonMDd\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\cppsoft\mysql_connector\lib64\vs14;D:\cppsoft\redis\lib;D:\cppsoft\jsonMDd\lib;D:\cppsoft\libjson\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\cppsoft\mysql_connector\lib64\vs14;D:\cppsoft\redis\lib;D:\cppsoft\jsonMDd\lib;D:\cppsoft\libjson\lib;D:\cppsoft\boost_1_86_0\stage\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <Link>

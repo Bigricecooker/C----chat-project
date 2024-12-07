@@ -37,7 +37,7 @@ private:
 	std::condition_variable _cond;// 互斥量
 };
 
-
+// 状态服务客户端
 class StatusGrpcClient:public Singleton<StatusGrpcClient>
 {
 	friend class Singleton<StatusGrpcClient>;
