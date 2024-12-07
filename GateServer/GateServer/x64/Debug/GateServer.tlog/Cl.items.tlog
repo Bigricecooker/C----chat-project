@@ -9,4 +9,5 @@ D:\git_repo\C----chat-project\GateServer\GateServer\message.pb.cc;D:\git_repo\C-
 D:\git_repo\C----chat-project\GateServer\GateServer\MysqlMgr.cpp;D:\git_repo\C----chat-project\GateServer\GateServer\x64\Debug\MysqlMgr.obj
 D:\git_repo\C----chat-project\GateServer\GateServer\MySqlPool.cpp;D:\git_repo\C----chat-project\GateServer\GateServer\x64\Debug\MySqlPool.obj
 D:\git_repo\C----chat-project\GateServer\GateServer\RedisMgr.cpp;D:\git_repo\C----chat-project\GateServer\GateServer\x64\Debug\RedisMgr.obj
+D:\git_repo\C----chat-project\GateServer\GateServer\StatusGrpcClient.cpp;D:\git_repo\C----chat-project\GateServer\GateServer\x64\Debug\StatusGrpcClient.obj
 D:\git_repo\C----chat-project\GateServer\GateServer\VerifyGrpcClient.cpp;D:\git_repo\C----chat-project\GateServer\GateServer\x64\Debug\VerifyGrpcClient.obj
