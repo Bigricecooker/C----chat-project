@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QPushButton>
+#include "global.h"
 /******************************************************************************
  *
  * @file       logindialog.h
@@ -28,8 +29,27 @@ public:
     explicit LoginDialog(QWidget *parent = nullptr);
     ~LoginDialog();
 
+    void showTip(QString str, bool b_ok);// 错误信息显示
+
+
+private slots:
+    void on_login_Button_clicked();// 点击登录按钮事件
+    void slot_login_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到登录完成或其他完成事件
+
 private:
     Ui::LoginDialog *ui;
+    QMap<TipErr, QString> _tip_errs;// 错误缓存
+    QMap<ReqId, std::function<void(const QJsonObject&)>> _handlers;// 消息处理集合
+
+    void initHttpHandlers();// 注册消息处理回调
+
+    // 输入框错误提示
+    bool checkUserValid();
+    bool checkPassValid();
+    void AddTipErr(TipErr te, QString tips);// 添加错误
+    void DelTipErr(TipErr te);// 删除错误
+
+    bool enableBtn(bool enabled);// 设置按钮是否可点击
 };
 
 #endif // LOGINDIALOG_H

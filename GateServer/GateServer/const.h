@@ -44,4 +44,12 @@ enum ErrorCodes {
 	PasswdInvalid = 1009,// ÃÜÂë¸üĞÂÊ§°Ü
 };
 
+struct UserInfo
+{
+	std::string name;
+	std::string email;
+	std::string pwd;
+	int uid;
+};
+
 #define CODEPREFIX "code_" // Ç°×º

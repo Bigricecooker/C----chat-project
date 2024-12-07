@@ -38,6 +38,8 @@ signals:
     void sig_reg_mod_finish(ReqId id, QString res, ErrorCodes err);
     // 确认重置按钮完成信号
     void sig_rest_mod_finish(ReqId id, QString res, ErrorCodes err);
+    // 点击登录按钮完成信号
+    void sig_login_mod_finish(ReqId id, QString res, ErrorCodes err);
 };
 
 #endif // HTTPMGR_H

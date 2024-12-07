@@ -40,7 +40,9 @@ public:
 	// 判断用户与邮箱是否对应操作
 	bool CheckEmail(const std::string& name, const std::string& email);
 	// 重置密码
-	bool UpdatePwd(const std::string& name, const std::string& pwd);// 重置密码
+	bool UpdatePwd(const std::string& name, const std::string& pwd);
+	// 判断用户与密码是否对应操作
+	bool Checkpwd(const std::string& name, const std::string& pwd, UserInfo& userinfo);
 
 private:
 	std::unique_ptr<MySqlPool> _pool;

@@ -256,4 +256,44 @@ LogicSystem::LogicSystem()
         beast::ostream(connection->_response.body()) << jsonstr;
         return true;
         });
+
+    // 注册Post请求-用户登录
+    RegPost("/user_login", [](std::shared_ptr<HttpConnection> connection) {
+        // 提取请求
+        auto body_str = boost::beast::buffers_to_string(connection->_request.body().data());
+        std::cout << "receive body is " << body_str << std::endl;
+
+        // 设置响应类型
+        connection->_response.set(http::field::content_type, "text/json");
+
+        // 解析JSON数据
+        Json::Value root;// 回包数据
+        Json::Reader reader;
+        Json::Value src_root;
+        bool parse_success = reader.parse(body_str, src_root);
+
+        // 解析失败处理
+        if (!parse_success)
+        {
+            std::cout << "Failed to parse JSON data!" << std::endl;
+            root["error"] = ErrorCodes::Error_json;
+            std::string jsonstr = root.toStyledString();
+            beast::ostream(connection->_response.body()) << jsonstr;
+            return true;
+        }
+
+        auto name = src_root["name"].asString();
+        auto pwd = src_root["pwd"].asString();
+        UserInfo userinfo;
+        
+        // 数据库查询用户与密码是否匹配
+        bool pwd_valid = MysqlMgr::GetInstance()->Checkpwd(name, pwd, userinfo);
+        if (!pwd_valid) {
+            std::cout << " user pwd not match" << std::endl;
+            root["error"] = ErrorCodes::PasswdInvalid;
+            std::string jsonstr = root.toStyledString();
+            beast::ostream(connection->_response.body()) << jsonstr;
+            return true;
+        }
+        });
 }
