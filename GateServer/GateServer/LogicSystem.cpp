@@ -283,8 +283,8 @@ LogicSystem::LogicSystem()
             return true;
         }
 
-        auto name = src_root["name"].asString();
-        auto pwd = src_root["pwd"].asString();
+        auto name = src_root["user"].asString();
+        auto pwd = src_root["passwd"].asString();
         UserInfo userinfo;
         
         // 数据库查询用户与密码是否匹配
@@ -314,6 +314,7 @@ LogicSystem::LogicSystem()
         root["uid"] = userinfo.uid;
         root["token"] = reply.token();
         root["host"] = reply.host();
+        root["port"] = reply.port();
         std::string jsonstr = root.toStyledString();
         beast::ostream(connection->_response.body()) << jsonstr;
         return true;

@@ -41,6 +41,13 @@ int main()
             server->Shutdown(); // 优雅地关闭grpc服务器
         }
         });
+
+    // 在单独的线程中运行io_context
+    std::thread([&io_context]() { io_context.run(); }).detach();
+
+    // 等待服务器关闭
+    server->Wait();
+    io_context.stop(); // 停止io_context
 }
 
 

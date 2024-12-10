@@ -225,21 +225,34 @@ bool MysqlDao::Checkpwd(const std::string& name, const std::string& pwd, UserInf
 		// 执行查询
 		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
 
+		std::string origin_pwd = "";
+		std::string email = "";
+		int uid = 0;
 		// 遍历结果集并判断
 		while (res->next())
 		{
+			origin_pwd = res->getString("pwd");
+			email = res->getString("email");
+			uid = res->getInt("uid");
 			std::cout << "Check pwd: " << res->getString("pwd") << std::endl;
 			break;
 		}
 
-		if (pwd != res->getString("pwd")) {
-			_pool->returnConnection(std::move(con));
-			return false;
+		if (res->next())
+		{
+			origin_pwd = res->getString("pwd");
+			std::cout << "Check pwd: " << origin_pwd << std::endl;
+
+			if (pwd != origin_pwd) {
+				_pool->returnConnection(std::move(con));
+				return false;
+			}
 		}
 
+		// 只有再有数据是才填充
 		userinfo.name = name;
-		userinfo.email = res->getString("email");
-		userinfo.uid = res->getInt("uid");
+		userinfo.email = email;
+		userinfo.uid = uid;
 		userinfo.pwd = pwd;
 		_pool->returnConnection(std::move(con));
 		return true;

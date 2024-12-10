@@ -39,7 +39,7 @@ Status StatusServiceImpl::GetChatServer(ServerContext* context, const GetChatSer
     std::cout << prefix << std::endl;
 
     _server_index = (_server_index++) % (_servers.size());
-    auto& server = _servers[_server_index];
+    auto& server = _servers[_server_index];// 这里目前有线程安全问题
     reply->set_host(server.host);
     reply->set_port(server.port);
     reply->set_error(ErrorCodes::Success);

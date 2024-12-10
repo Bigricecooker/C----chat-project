@@ -50,6 +50,8 @@ private slots:
     void on_get_code_clicked();// 点击获取验证码按钮事件
 
     void slot_reset_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到重置完成或其他完成事件
+
+    bool enableBtn(bool enabled);// 设置按钮是否可点击
 };
 
 #endif // RESETDIALOG_H

@@ -241,3 +241,9 @@ void ResetDialog::slot_reset_mod_finish(ReqId id, QString res, ErrorCodes err)
     return;
 }
 
+// 设置按钮是否可点击
+bool ResetDialog::enableBtn(bool enabled)
+{
+    //后面再改一下吧
+}
+

@@ -1,0 +1,9 @@
+D:\git_repo\C----chat-project\StatusServer\StatusServer\AsioIOServicePool.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\AsioIOServicePool.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\ConfigMgr.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\ConfigMgr.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\main.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\main.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\message.grpc.pb.cc;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\message.grpc.pb.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\message.pb.cc;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\message.pb.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\MysqlMgr.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\MysqlMgr.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\MySqlPool.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\MySqlPool.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\RedisMgr.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\RedisMgr.obj
+D:\git_repo\C----chat-project\StatusServer\StatusServer\StatusServiceImpl.cpp;D:\git_repo\C----chat-project\StatusServer\StatusServer\x64\Debug\StatusServiceImpl.obj

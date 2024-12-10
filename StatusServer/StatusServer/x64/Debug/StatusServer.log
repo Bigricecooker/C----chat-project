@@ -1,0 +1,13 @@
+﻿  main.cpp
+  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
+  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
+  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
+  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+  StatusServer.vcxproj -> D:\git_repo\C----chat-project\StatusServer\x64\Debug\StatusServer.exe
+  D:\git_repo\C----chat-project\StatusServer\StatusServer\config.ini
+  复制了 1 个文件
+  D:\git_repo\C----chat-project\StatusServer\StatusServer\libcrypto-3-x64.dll
+  D:\git_repo\C----chat-project\StatusServer\StatusServer\libssl-3-x64.dll
+  D:\git_repo\C----chat-project\StatusServer\StatusServer\mysqlcppconn-9-vs14.dll
+  D:\git_repo\C----chat-project\StatusServer\StatusServer\mysqlcppconn8-2-vs14.dll
+  复制了 4 个文件

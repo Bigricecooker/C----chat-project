@@ -105,7 +105,14 @@ void LoginDialog::initHttpHandlers()
         }
 
 
+        auto user = jsonObj["user"].toString();
+        showTip(tr("登录成功"), true);
+        qDebug()<< "user is " << user ;
 
+        auto host = jsonObj["host"].toString();
+        auto port = jsonObj["port"].toString();
+        qDebug()<< "host is " << host ;
+        qDebug()<< "port is " << port ;
     });
 }
 

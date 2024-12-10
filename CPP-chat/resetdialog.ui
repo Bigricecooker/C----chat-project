@@ -75,7 +75,7 @@
       <widget class="QLineEdit" name="ver_lineEdit"/>
      </item>
      <item>
-      <widget class="QPushButton" name="get_code">
+      <widget class="TimberBtn" name="get_code">
        <property name="text">
         <string>获取</string>
        </property>
@@ -143,6 +143,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TimberBtn</class>
+   <extends>QPushButton</extends>
+   <header>timberbtn.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
