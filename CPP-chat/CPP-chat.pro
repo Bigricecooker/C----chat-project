@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     registergdialog.cpp \
     resetdialog.cpp \
+    tcpmgr.cpp \
     timberbtn.cpp
 
 RC_ICONS = QQ.ico
@@ -31,6 +32,7 @@ HEADERS += \
     registergdialog.h \
     resetdialog.h \
     singleton.h \
+    tcpmgr.h \
     timberbtn.h
 
 FORMS += \

@@ -13,11 +13,6 @@ std::string generate_unique_string() {
 }
 
 
-
-
-
-
-
 StatusServiceImpl::StatusServiceImpl():_server_index(0)
 {
     auto& cfg = ConfigMgr::Inst();

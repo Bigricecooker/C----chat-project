@@ -1,12 +1,15 @@
 #include "logindialog.h"
 #include "ui_logindialog.h"
 #include "httpmgr.h"
+#include "tcpmgr.h"
 
 LoginDialog::LoginDialog(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::LoginDialog)
 {
     ui->setupUi(this);
+
+    enableBtn(true);
 
     // 设置密码模式
     ui->pass_lineEdit->setEchoMode(QLineEdit::Password);
@@ -21,6 +24,13 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     // 连接点击登录后回调
     connect(HttpMgr::GetInstance().get(),&HttpMgr::sig_login_mod_finish,this,&LoginDialog::slot_login_mod_finish);
+
+    // 连接发送TCP连接信号
+    connect(this,&LoginDialog::sig_connect_tcp,TcpMgr::GetInstance().get(),&TcpMgr::slot_tcp_connect);
+    // 连接TCP管理者发出的连接成功信号
+    connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_con_success,this,&LoginDialog::slot_tcp_con_finish);
+    // 连接TCP管理者发出的连接失败信号
+    connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_login_failed,this,&LoginDialog::slot_login_failed);
 
     initHttpHandlers();
 }
@@ -93,6 +103,36 @@ void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
     return;
 }
 
+// TCP连接建立成功事件
+void LoginDialog::slot_tcp_con_finish(bool bsuccess)
+{
+    if(bsuccess)
+    {
+        showTip(tr("聊天服务连接成功，正在登录..."),true);
+        QJsonObject jsonObj;
+        jsonObj["token"] = _token;
+        jsonObj["uid"] = _uid;
+
+        QJsonDocument doc(jsonObj);
+        QByteArray  jsonData = doc.toJson(QJsonDocument::Indented);
+
+        // 向聊天服务器发送登录请求
+        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_CHAT_LOGIN, jsonData);
+    }
+    else
+    {
+        showTip(tr("网络异常"),false);
+        enableBtn(true);
+    }
+}
+
+// 登录失败事件
+void LoginDialog::slot_login_failed(int err)
+{
+
+}
+
+// 注册消息处理回调
 void LoginDialog::initHttpHandlers()
 {
     // 注册点击登录回包逻辑
@@ -104,15 +144,26 @@ void LoginDialog::initHttpHandlers()
             return;
         }
 
-
+        // 解析状态服务器回的密钥
         auto user = jsonObj["user"].toString();
-        showTip(tr("登录成功"), true);
-        qDebug()<< "user is " << user ;
 
-        auto host = jsonObj["host"].toString();
-        auto port = jsonObj["port"].toString();
-        qDebug()<< "host is " << host ;
-        qDebug()<< "port is " << port ;
+        ServerInfo info;
+        info.Host = jsonObj["host"].toString();
+        info.Port = jsonObj["port"].toString();
+        info.Uid = jsonObj["uid"].toInt();
+        info.Token = jsonObj["token"].toString();
+
+        _uid = info.Uid;
+        _token = info.Token;
+
+        qDebug()<< "user is " << user << " uid is " << info.Uid <<" host is "
+                 << info.Host << " Port is " << info.Port << " Token is " << info.Token;
+
+        // 发送向对端进行TCP连接的信号
+        emit sig_connect_tcp(info);
+
+        // 设置按钮为不可点击
+        enableBtn(false);
     });
 }
 
