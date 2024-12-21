@@ -4,6 +4,7 @@
 #include "Singleton.h"
 class AsioIOServicePool:public Singleton<AsioIOServicePool>
 {
+	friend class Singleton<AsioIOServicePool>;
 public:
 	using IOService = boost::asio::io_context;
 	using Work = boost::asio::io_context::work;

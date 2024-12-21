@@ -36,8 +36,8 @@ public:
 private slots:
     void on_login_Button_clicked();// 点击登录按钮事件
     void slot_login_mod_finish(ReqId id, QString res, ErrorCodes err);// 收到登录完成或其他完成事件
-    void slot_tcp_con_finish(bool bsuccess);// TCP连接建立成功事件
-    void slot_login_failed(int err);// 登录失败事件
+    void slot_tcp_con_finish(bool bsuccess);// TCP连接建立成功与否事件
+    void slot_login_failed(int err);// TCP连接失败事件
 
 private:
     Ui::LoginDialog *ui;

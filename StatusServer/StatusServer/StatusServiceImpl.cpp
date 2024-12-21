@@ -32,15 +32,20 @@ Status StatusServiceImpl::GetChatServer(ServerContext* context, const GetChatSer
 {
     std::string prefix("Big_rice_cooker status server has received :  ");
     std::cout << prefix << std::endl;
-
-    _server_index = (_server_index++) % (_servers.size());
-    auto& server = _servers[_server_index];// 这里目前有线程安全问题
+    //_server_index = (_server_index++) % (_servers.size());
+    //auto& server = _servers[_server_index];// 这里目前有线程安全问题
+    auto server = getChatServer();
     reply->set_host(server.host);
     reply->set_port(server.port);
     reply->set_error(ErrorCodes::Success);
     reply->set_token(generate_unique_string());// 设置访问令牌
     insertToken(request->uid(), reply->token());// 将令牌和用户标识起来
     return Status::OK;
+}
+
+Status StatusServiceImpl::Login(ServerContext* context, const LoginReq* request, LoginRsp* reply)
+{
+    return Status();
 }
 
 // 将用户标识和令牌绑定
@@ -50,4 +55,13 @@ void StatusServiceImpl::insertToken(int uid, std::string token)
     std::string token_key = USERTOKENPREFIX + uid_str;
     // 存入redis
     RedisMgr::GetInstance()->Set(token_key, token);
+}
+
+// 返回聊天服务器信息
+ChatServer StatusServiceImpl::getChatServer()
+{
+    /*std::lock_guard<std::mutex> lock(_mutex);
+    _server_index = (_server_index) % (_servers.size());
+    return _servers[_server_index++];*/
+    return _servers[0];
 }

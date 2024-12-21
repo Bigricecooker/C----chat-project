@@ -11,6 +11,8 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
 {
     // 读写socket都是和聊天服务器
 
+
+
     // 连接socket建立成功
     connect(&_socket, &QTcpSocket::connected, this, [&]() {
         qDebug() << "Connected to server!";
@@ -73,6 +75,7 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
         connect(&_socket, QOverload<QAbstractSocket::SocketError>::of(&QTcpSocket::errorOccurred), [&](QAbstractSocket::SocketError socketError) {
             Q_UNUSED(socketError)
             qDebug() << "Error:" << _socket.errorString();
+            // 这里要发一个信号让按钮可以点击
         });
 
         // 连接断开连接处理
@@ -150,6 +153,7 @@ void TcpMgr::slot_tcp_connect(ServerInfo info)
     qDebug() << "Connecting to server...";
     _host = info.Host;
     _port = static_cast<quint16>(info.Port.toUInt());
+    qDebug()<< _host<<_port;
     _socket.connectToHost(_host,_port);
 }
 

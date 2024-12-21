@@ -27,9 +27,9 @@ LoginDialog::LoginDialog(QWidget *parent)
 
     // 连接发送TCP连接信号
     connect(this,&LoginDialog::sig_connect_tcp,TcpMgr::GetInstance().get(),&TcpMgr::slot_tcp_connect);
-    // 连接TCP管理者发出的连接成功信号
+    // 连接TCP管理者发出的TCP连接成功与否信号
     connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_con_success,this,&LoginDialog::slot_tcp_con_finish);
-    // 连接TCP管理者发出的连接失败信号
+    // 连接TCP管理者发出的登录失败信号
     connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_login_failed,this,&LoginDialog::slot_login_failed);
 
     initHttpHandlers();
@@ -74,6 +74,7 @@ void LoginDialog::on_login_Button_clicked()
     HttpMgr::GetInstance()->PostHttpReq(gate_url_prefix+"/user_login",json,ReqId::ID_LOGIN_USER,Modules::LOGINMOD);
 }
 
+// 收到登录完成或其他完成事件
 void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
 {
     enableBtn(true);
@@ -103,7 +104,7 @@ void LoginDialog::slot_login_mod_finish(ReqId id, QString res, ErrorCodes err)
     return;
 }
 
-// TCP连接建立成功事件
+// TCP连接建立成功与否事件
 void LoginDialog::slot_tcp_con_finish(bool bsuccess)
 {
     if(bsuccess)
@@ -129,7 +130,10 @@ void LoginDialog::slot_tcp_con_finish(bool bsuccess)
 // 登录失败事件
 void LoginDialog::slot_login_failed(int err)
 {
-
+    QString result = QString("登录失败, err is %1")
+                         .arg(err);
+    showTip(result,false);
+    enableBtn(true);
 }
 
 // 注册消息处理回调

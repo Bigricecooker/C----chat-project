@@ -1,16 +1,11 @@
-﻿  ConfigMgr.cpp
+﻿  CServer.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  main.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  正在生成代码...
-D:\git_repo\C----chat-project\ChatServer\ChatServer\ConfigMgr.h(22,1): warning C4715: “SectionInfo::operator=”: 不是所有的控件路径都返回值
   ChatServer.vcxproj -> D:\git_repo\C----chat-project\ChatServer\x64\Debug\ChatServer.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。
   D:\git_repo\C----chat-project\ChatServer\ChatServer\config.ini
   复制了 1 个文件
   找不到文件 - *.dll
