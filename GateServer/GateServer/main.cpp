@@ -18,6 +18,7 @@ int main()
     //TestRedisMgr();
     ///////////////////////////////////////
     // 
+    
     // 用于读取配置文件
     ConfigMgr& gCfgMgr = ConfigMgr::Inst();
     try 
@@ -33,6 +34,7 @@ int main()
                     return;
                 }
 
+                // 成功接收到信号
                 ioc.stop();
             });
 

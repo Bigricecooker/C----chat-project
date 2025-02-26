@@ -79,6 +79,7 @@ MysqlDao::MysqlDao()
 	std::string user = gCfgMgr["Mysql"]["User"];
 	std::string passwd = gCfgMgr["Mysql"]["Passwd"];
 	std::string schema = gCfgMgr["Mysql"]["Schema"];
+
 	_pool.reset(new MySqlPool(host + ":" + port, user, passwd, schema, 5));
 }
 

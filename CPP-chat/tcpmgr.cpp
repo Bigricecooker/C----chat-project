@@ -126,8 +126,6 @@ void TcpMgr::initHttpHandlers()
         }
 
         // 登录成功操作
-
-
         // 发送信号进入聊天界面
         emit sig_switch_chatdlg();
     });

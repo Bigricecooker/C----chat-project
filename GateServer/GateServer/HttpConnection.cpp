@@ -52,7 +52,7 @@ void HttpConnection::CheckDeadline()
 void HttpConnection::WriteResponse()
 {
 	auto self = shared_from_this();
-	_response.content_length(_response.body().size());
+	_response.content_length(_response.body().size());// 确保客户端知道响应体的长度
 	http::async_write(_socket, _response, [self](beast::error_code ec,
 		std::size_t bytes_transferred) {
 			// 发送完数据后断开发送端

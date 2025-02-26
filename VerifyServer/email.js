@@ -5,7 +5,7 @@ const config_module = require("./config")
  * 创建发送邮件的代理
  */
 let transport = nodemailer.createTransport({
-    host: 'smtp.163.com',
+    host: 'smtp.qq.com',
     port: 465,
     secure: true,
     auth: {

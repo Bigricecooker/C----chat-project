@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "tcpmgr.h"
+
 /******************************************************************************
  *
  * @file       mainwindow.cpp
@@ -26,6 +28,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     // 连接进入重置密码界面信号
     connect(_login_dlg,&LoginDialog::switchReset,this,&MainWindow::SlotSwitchReset);
+
+    // 连接进入聊天界面信号
+    connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_switch_chatdlg,this,&MainWindow::SlotSwitchChat);
+
+    //测试
+    TcpMgr::GetInstance()->sig_switch_chatdlg();
 }
 
 MainWindow::~MainWindow()
@@ -44,7 +52,7 @@ MainWindow::~MainWindow()
 }
 
 //----------------------------------------槽函数-----------------------------------------------//
-// 注意setCentralWidget()会触发之前的对象的析构，所以这里都要重新分配和连接信号与槽
+
 
 // 进入注册界面
 void MainWindow::SlotSwitchReg()
@@ -74,7 +82,7 @@ void MainWindow::SlotSwitchReset()
     _reset_dlg->show();
 }
 
-
+// 注意上面的setCentralWidget()会触发之前的对象的析构，所以这里都要重新分配和连接信号与槽
 
 // 注册界面返回登陆界面
 void MainWindow::SlotSwitchLog()
@@ -106,6 +114,18 @@ void MainWindow::SlotSwitchLog2()
     _reset_dlg->hide();
 
     _login_dlg->show();
+}
+
+void MainWindow::SlotSwitchChat()
+{
+    _chat_dlg=new ChatDialog(this);
+    _chat_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    _chat_dlg->show();
+    _login_dlg->hide();
+    //this->setMinimumSize(QSize(1050,900));
+    this->setMinimumSize(QSize(1000,650));
+    this->setMaximumSize(QWIDGETSIZE_MAX, QWIDGETSIZE_MAX);
+    _chat_dlg->move(0, 0);
 }
 
 
