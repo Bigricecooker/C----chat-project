@@ -10,10 +10,14 @@ CONFIG += c++17
 
 SOURCES += \
     chatdialog.cpp \
+    chatuserlist.cpp \
+    chatuserwid.cpp \
     clickedbtn.cpp \
     clickedlabel.cpp \
+    customizeedit.cpp \
     global.cpp \
     httpmgr.cpp \
+    listitembase.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -27,10 +31,14 @@ DESTDIR = ./bin
 
 HEADERS += \
     chatdialog.h \
+    chatuserlist.h \
+    chatuserwid.h \
     clickedbtn.h \
     clickedlabel.h \
+    customizeedit.h \
     global.h \
     httpmgr.h \
+    listitembase.h \
     logindialog.h \
     mainwindow.h \
     registergdialog.h \
@@ -41,6 +49,7 @@ HEADERS += \
 
 FORMS += \
     chatdialog.ui \
+    chatuserwid.ui \
     logindialog.ui \
     mainwindow.ui \
     registergdialog.ui \

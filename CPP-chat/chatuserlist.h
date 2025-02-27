@@ -1,0 +1,29 @@
+#ifndef CHATUSERLIST_H
+#define CHATUSERLIST_H
+#include <QListWidget>
+#include <QWheelEvent>
+#include <QEvent>
+#include <QScrollBar>
+#include <QDebug>
+
+/******************************************************************************
+ *
+ * @file       chatuserlist.h
+ * @brief      聊天用户列表样式
+ *
+ * @author     Bigricecooker
+ * @date       2025/02/27
+ * @history
+ *****************************************************************************/
+class ChatUserList:public QListWidget
+{
+    Q_OBJECT
+public:
+    ChatUserList(QWidget *parent = nullptr);
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;// 安装事件过滤器后，每当一个事件发生时就会调用
+signals:
+    void sig_loading_chat_user();
+};
+
+#endif // CHATUSERLIST_H
