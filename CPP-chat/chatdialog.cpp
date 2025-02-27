@@ -5,6 +5,7 @@
 
 #include <QRandomGenerator>
 #include "chatuserwid.h"
+#include <QDebug>
 
 ChatDialog::ChatDialog(QWidget *parent)
     : QDialog(parent)
@@ -29,10 +30,12 @@ ChatDialog::ChatDialog(QWidget *parent)
     ui->search_edit->addAction(clearAction, QLineEdit::TrailingPosition);
 
     // 当需要显示清除图标时，更改为实际的清除图标
-    connect(ui->search_edit, &QLineEdit::textChanged, [&clearAction](const QString &text) {
+    connect(ui->search_edit, &QLineEdit::textChanged, [clearAction](const QString &text) {
         if (!text.isEmpty()) {
+            qDebug()<<"测试1";
             clearAction->setIcon(QIcon(":/res/close_search.png"));
         } else {
+            qDebug()<<"测试2";
             clearAction->setIcon(QIcon(":/res/close_transparent.png")); // 文本为空时，切换回透明图标
         }
     });
@@ -48,7 +51,8 @@ ChatDialog::ChatDialog(QWidget *parent)
 
     ShowSearch(false);// 默认情况也不显示搜索框
 
-    addChatUserList();
+    connect(ui->chat_user_list,&ChatUserList::sig_loading_chat_user,this,&ChatDialog::slot_loading_chat_user);
+    //addChatUserList();
 }
 
 ChatDialog::~ChatDialog()
@@ -84,7 +88,7 @@ std::vector<QString> names = {
 void ChatDialog::addChatUserList()
 {
     // 创建QListWidgetItem，并设置自定义的widget
-    for(int i = 0; i < 13; i++){
+    for(int i = 0; i < 20; i++){
         int randomValue = QRandomGenerator::global()->bounded(100); // 生成0到99之间的随机整数
         int str_i = randomValue%strs.size();
         int head_i = randomValue%heads.size();
@@ -117,5 +121,13 @@ void ChatDialog::ShowSearch(bool bsearch)
         ui->search_list->hide();
         ui->con_user_list->show();
         _mode = ChatUIMode::ContactMode;
+    }
+}
+
+void ChatDialog::slot_loading_chat_user()
+{
+    if(_b_loading)
+    {
+        return;
     }
 }

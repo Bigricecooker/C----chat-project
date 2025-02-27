@@ -35,6 +35,8 @@ private:
     ChatUIMode _mode;// 模式，side_bar
     ChatUIMode _state;// 状态，chat_user_wid
     bool _b_loading;
+private slots:
+    void slot_loading_chat_user();// 滑动滚轮后加载更多联系人
 };
 
 #endif // CHATDIALOG_H
