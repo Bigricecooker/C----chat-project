@@ -18,6 +18,7 @@ SOURCES += \
     global.cpp \
     httpmgr.cpp \
     listitembase.cpp \
+    loadingdlg.cpp \
     logindialog.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -39,6 +40,7 @@ HEADERS += \
     global.h \
     httpmgr.h \
     listitembase.h \
+    loadingdlg.h \
     logindialog.h \
     mainwindow.h \
     registergdialog.h \
@@ -50,6 +52,7 @@ HEADERS += \
 FORMS += \
     chatdialog.ui \
     chatuserwid.ui \
+    loadingdlg.ui \
     logindialog.ui \
     mainwindow.ui \
     registergdialog.ui \
