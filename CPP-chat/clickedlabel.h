@@ -26,6 +26,8 @@ public:
     virtual void enterEvent(QEnterEvent* event) override;
     // 鼠标离开事件
     virtual void leaveEvent(QEvent* event) override;
+    // 鼠标抬起事件
+    virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
     // 设置状态
     void SetState(QString normal="", QString hover="", QString press="",

@@ -53,7 +53,7 @@ ChatDialog::ChatDialog(QWidget *parent)
     ShowSearch(false);// 默认情况也不显示搜索框
 
     connect(ui->chat_user_list,&ChatUserList::sig_loading_chat_user,this,&ChatDialog::slot_loading_chat_user);
-    //addChatUserList();
+    addChatUserList();
 }
 
 ChatDialog::~ChatDialog()

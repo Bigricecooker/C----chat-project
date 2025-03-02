@@ -20,7 +20,7 @@ public:
     CustomizeEdit(QWidget *parent=nullptr);
     void SetMaxLength(int maxLen);
 protected:
-    void focusOutEvent(QFocusEvent *event) override;
+    void focusOutEvent(QFocusEvent *event) override;// 发送失去焦点信号的函数
 private:
     void limitTextLength(QString text);// 限制最大长度
 

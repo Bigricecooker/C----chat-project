@@ -10,8 +10,10 @@ CONFIG += c++17
 
 SOURCES += \
     chatdialog.cpp \
+    chatpage.cpp \
     chatuserlist.cpp \
     chatuserwid.cpp \
+    chatview.cpp \
     clickedbtn.cpp \
     clickedlabel.cpp \
     customizeedit.cpp \
@@ -32,8 +34,10 @@ DESTDIR = ./bin
 
 HEADERS += \
     chatdialog.h \
+    chatpage.h \
     chatuserlist.h \
     chatuserwid.h \
+    chatview.h \
     clickedbtn.h \
     clickedlabel.h \
     customizeedit.h \
@@ -51,6 +55,7 @@ HEADERS += \
 
 FORMS += \
     chatdialog.ui \
+    chatpage.ui \
     chatuserwid.ui \
     loadingdlg.ui \
     logindialog.ui \

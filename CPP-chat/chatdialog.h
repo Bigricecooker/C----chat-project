@@ -29,7 +29,7 @@ public:
     void addChatUserList();
     //--------
 private:
-    void ShowSearch(bool bsearch = false);
+    void ShowSearch(bool bsearch = false);// 选择展示哪个list
 
     Ui::ChatDialog *ui;
     ChatUIMode _mode;// 模式，side_bar
