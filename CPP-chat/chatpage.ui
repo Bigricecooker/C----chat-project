@@ -231,7 +231,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QTextEdit" name="chatEdit">
+       <widget class="MessageTextEdit" name="chatEdit">
         <property name="minimumSize">
          <size>
           <width>0</width>
@@ -383,6 +383,11 @@
    <extends>QWidget</extends>
    <header location="global">chatview.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>MessageTextEdit</class>
+   <extends>QTextEdit</extends>
+   <header location="global">messagetextedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

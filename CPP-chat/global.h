@@ -99,7 +99,18 @@ enum ListItemType{
     GROOUP_TIP_ITEM,// 分组提示条目
 };
 
+// 聊天角色
+enum ChatRole{
+    Self,// 自己
+    Other,// 对方
+};
 
+// 暂时
+struct MsgInfo{
+    QString msgFlag;
+    QString content;
+    QPixmap pixmap;
+};
 
 extern QString gate_url_prefix;
 
