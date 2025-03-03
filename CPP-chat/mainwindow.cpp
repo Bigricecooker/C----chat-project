@@ -120,6 +120,7 @@ void MainWindow::SlotSwitchChat()
 {
     _chat_dlg=new ChatDialog(this);
     _chat_dlg->setWindowFlags(Qt::CustomizeWindowHint|Qt::FramelessWindowHint);
+    setCentralWidget(_chat_dlg);// byd少写了这个导致聊天界面一直没弄对齐
     _chat_dlg->show();
     _login_dlg->hide();
     //this->setMinimumSize(QSize(1050,900));

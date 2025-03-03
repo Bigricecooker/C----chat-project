@@ -13,6 +13,7 @@
  *****************************************************************************/
 class ClickedBtn:public QPushButton
 {
+    Q_OBJECT
 public:
     ClickedBtn(QWidget * parent = nullptr);
     ~ClickedBtn();
