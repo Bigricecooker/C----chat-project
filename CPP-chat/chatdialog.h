@@ -3,6 +3,8 @@
 
 #include <QDialog>
 #include "global.h"
+#include "statewidget.h"
+#include <QList>
 /******************************************************************************
  *
  * @file       chatdialog.h
@@ -23,6 +25,7 @@ class ChatDialog : public QDialog
 public:
     explicit ChatDialog(QWidget *parent = nullptr);
     ~ChatDialog();
+    void ClearLabelState(StateWidget *lb);// 清除lb的状态
 
 
     // 测试用函数
@@ -30,13 +33,17 @@ public:
     //--------
 private:
     void ShowSearch(bool bsearch = false);// 选择展示哪个list
+    void AddLBGroup(StateWidget* lb);// 添加至按钮组
 
     Ui::ChatDialog *ui;
     ChatUIMode _mode;// 模式，side_bar
     ChatUIMode _state;// 状态，chat_user_wid
     bool _b_loading;
+    QList<StateWidget*> _lb_list;
 private slots:
     void slot_loading_chat_user();// 滑动滚轮后加载更多联系人
+    void slot_side_chat();
+    void slot_side_contact();
 };
 
 #endif // CHATDIALOG_H

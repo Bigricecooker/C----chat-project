@@ -49,16 +49,48 @@ ChatDialog::ChatDialog(QWidget *parent)
         //清除按钮被按下则不显示搜索框
         ShowSearch(false);
     });
-
+    ui->search_edit->SetMaxLength(15);
     ShowSearch(false);// 默认情况也不显示搜索框
 
     connect(ui->chat_user_list,&ChatUserList::sig_loading_chat_user,this,&ChatDialog::slot_loading_chat_user);
     addChatUserList();
+
+
+    // 头像
+    QPixmap pixmap(":/res/head_1.jpg");
+    ui->side_head_lb->setPixmap(pixmap); // 将图片设置到QLabel上
+    QPixmap scaledPixmap = pixmap.scaled(ui->side_head_lb->size(), Qt::KeepAspectRatio); // 将图片缩放到label的大小
+    ui->side_head_lb->setPixmap(scaledPixmap); // 将缩放后的图片设置到QLabel上
+    ui->side_head_lb->setScaledContents(true); // 设置QLabel自动缩放图片内容以适应大小
+
+
+    ui->side_chat_lb->setProperty("state","normal");
+    ui->side_chat_lb->SetState("normal","hover","pressed","selected_normal","selected_hover","selected_pressed");
+    ui->side_contact_lb->SetState("normal","hover","pressed","selected_normal","selected_hover","selected_pressed");
+
+
+    AddLBGroup(ui->side_contact_lb);
+    AddLBGroup(ui->side_chat_lb);
+
+    // 点击实现侧边栏切换
+    connect(ui->side_chat_lb,&StateWidget::clicked,this,&ChatDialog::slot_side_chat);
+    connect(ui->side_contact_lb,&StateWidget::clicked,this,&ChatDialog::slot_side_contact);
 }
 
 ChatDialog::~ChatDialog()
 {
     delete ui;
+}
+
+void ChatDialog::ClearLabelState(StateWidget *lb)
+{
+    // 清除组里其他lb的状态
+    for(auto & ele: _lb_list){
+        if(ele == lb){
+            continue;
+        }
+        ele->ClearState();
+    }
 }
 
 //----测试用数据---
@@ -125,6 +157,11 @@ void ChatDialog::ShowSearch(bool bsearch)
     }
 }
 
+void ChatDialog::AddLBGroup(StateWidget *lb)
+{
+    _lb_list.push_back(lb);
+}
+
 void ChatDialog::slot_loading_chat_user()
 {
     if(_b_loading)
@@ -141,4 +178,22 @@ void ChatDialog::slot_loading_chat_user()
     // 加载完成后关闭对话框
     loadingDialog->deleteLater();
     _b_loading = false;
+}
+
+void ChatDialog::slot_side_chat()
+{
+    qDebug()<< "receive side chat clicked";
+    ClearLabelState(ui->side_chat_lb);
+    ui->stackedWidget->setCurrentWidget(ui->chat_page);
+    _state = ChatUIMode::ChatMode;
+    ShowSearch(false);
+}
+
+void ChatDialog::slot_side_contact()
+{
+    qDebug()<< "receive side contact clicked";
+    ClearLabelState(ui->side_contact_lb);
+    ui->stackedWidget->setCurrentWidget(ui->friend_apply_page);
+    _state = ChatUIMode::ContactMode;
+    ShowSearch(false);
 }

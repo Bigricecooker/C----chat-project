@@ -30,6 +30,7 @@ SOURCES += \
     picturebubble.cpp \
     registergdialog.cpp \
     resetdialog.cpp \
+    statewidget.cpp \
     tcpmgr.cpp \
     textbubble.cpp \
     timberbtn.cpp
@@ -59,6 +60,7 @@ HEADERS += \
     registergdialog.h \
     resetdialog.h \
     singleton.h \
+    statewidget.h \
     tcpmgr.h \
     textbubble.h \
     timberbtn.h
