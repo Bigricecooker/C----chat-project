@@ -42,8 +42,11 @@ private:
     QList<StateWidget*> _lb_list;
 private slots:
     void slot_loading_chat_user();// 滑动滚轮后加载更多联系人
+    // 侧边栏切换
     void slot_side_chat();
     void slot_side_contact();
+
+    void slot_text_changed(const QString &str);
 };
 
 #endif // CHATDIALOG_H

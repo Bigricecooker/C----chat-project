@@ -5,7 +5,7 @@
 /******************************************************************************
  *
  * @file       listitembase.h
- * @brief      聊天界面item格式
+ * @brief      item格式基类
  *
  * @author     Bigricecooker
  * @date       2025/02/27

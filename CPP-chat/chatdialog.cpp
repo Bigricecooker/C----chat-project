@@ -75,6 +75,9 @@ ChatDialog::ChatDialog(QWidget *parent)
     // 点击实现侧边栏切换
     connect(ui->side_chat_lb,&StateWidget::clicked,this,&ChatDialog::slot_side_chat);
     connect(ui->side_contact_lb,&StateWidget::clicked,this,&ChatDialog::slot_side_contact);
+
+    // 链接搜索框输入变化
+    connect(ui->search_edit,&QLineEdit::textChanged,this,&ChatDialog::slot_text_changed);
 }
 
 ChatDialog::~ChatDialog()
@@ -196,4 +199,16 @@ void ChatDialog::slot_side_contact()
     ui->stackedWidget->setCurrentWidget(ui->friend_apply_page);
     _state = ChatUIMode::ContactMode;
     ShowSearch(false);
+}
+
+void ChatDialog::slot_text_changed(const QString &str)
+{
+    if(!str.isEmpty())
+    {
+        ShowSearch(true);
+    }
+    else
+    {
+        ShowSearch(false);
+    }
 }

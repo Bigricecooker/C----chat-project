@@ -6,6 +6,7 @@
 #include <QObject>
 #include "singleton.h"
 #include "global.h"
+#include "userdata.h"
 
 /******************************************************************************
  *
@@ -48,6 +49,8 @@ signals:
     void sig_send_data(ReqId reqId, QByteArray data);// 发送数据信号
     void sig_switch_chatdlg();// 跳转到聊天界面信号
     void sig_login_failed(int err);// 登录失败信号
+
+    void sig_user_search(std::shared_ptr<SearchInfo> info);// 搜索用户信号
 };
 
 #endif // TCPMGR_H
