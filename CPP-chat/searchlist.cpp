@@ -2,6 +2,8 @@
 #include <QScrollBar>
 #include <tcpmgr.h>
 #include <adduseritem.h>
+#include "findsuccessdlg.h"
+
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_search_edit(nullptr),_send_pending(false)
 {
@@ -11,7 +13,7 @@ SearchList::SearchList(QWidget *parent):QListWidget(parent),_search_edit(nullptr
     // 安装事件过滤器
     this->viewport()->installEventFilter(this);
     //连接点击的信号和槽
-    connect(this, &QListWidget::itemClicked, this, &SearchList::slot_item_clicked);
+    connect(this, &QListWidget::itemClicked, this, &SearchList::slot_item_clicked);// 列表中的item被点击就触发
     //添加条目
     addTipItem();
     //连接搜索条目
@@ -22,7 +24,12 @@ SearchList::SearchList(QWidget *parent):QListWidget(parent),_search_edit(nullptr
 
 void SearchList::CloseFindDlg()
 {
+    if(_find_dlg)
+    {
+        _find_dlg->hide();
+        _find_dlg=nullptr;
 
+    }
 }
 
 void SearchList::SetSearchEdit(QWidget *edit)
@@ -88,7 +95,36 @@ void SearchList::addTipItem()
 
 void SearchList::slot_item_clicked(QListWidgetItem *item)
 {
+    QWidget* widget =this->itemWidget(item);// 获取自定义widget对象（获取点击的条目）
+    if(!widget)
+    {
+        qDebug()<<"slot item clicked widget is nullptr";
+        return;
+    }
 
+    // 对自定义widget进行操作， 将item 转化为基类ListItemBase
+    ListItemBase *customItem = qobject_cast<ListItemBase*>(widget);
+    if(!customItem){
+        qDebug()<< "slot item clicked widget is nullptr";
+        return;
+    }
+    auto itemType = customItem->GetItemType();
+    if(itemType == ListItemType::INVALID_ITEM){// 不可点击条目
+        qDebug()<< "slot invalid item clicked ";
+        return;
+    }
+    if(itemType == ListItemType::ADD_USER_TIP_ITEM){
+        // ...
+        qDebug()<< "slot addusertip item clicked ";
+        _find_dlg = std::make_shared<FindSuccessDlg>(this);
+        auto si = std::make_shared<SearchInfo>(0,"llfc","llfc","hello , my friend!",0);
+        qDebug()<< "中间   1"<<si->_name<<"1   ";
+        (std::dynamic_pointer_cast<FindSuccessDlg>(_find_dlg))->SetSearchInfo(si);
+        _find_dlg->show();
+        return;
+    }
+    // 清除弹出框
+    CloseFindDlg();
 }
 
 void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)

@@ -331,3 +331,18 @@ LoadingDlg{
   font-family: "Microsoft YaHei";
   font-size: 12pt;
 }
+
+
+#FindSuccessDlg{
+    background-color: #ffffff;
+}
+#name_lb{
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+ }
+#add_friend_btn[state='normal']{
+    background: #07c160;
+    color: #ffffff;
+    font-size: 14px;
+    font-family: "Microsoft YaHei";
+}
