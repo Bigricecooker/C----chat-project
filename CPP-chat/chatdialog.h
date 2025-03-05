@@ -5,6 +5,7 @@
 #include "global.h"
 #include "statewidget.h"
 #include <QList>
+#include <QMouseEvent>>
 /******************************************************************************
  *
  * @file       chatdialog.h
@@ -31,9 +32,13 @@ public:
     // 测试用函数
     void addChatUserList();
     //--------
+
+protected:
+    bool eventFilter(QObject *watched, QEvent *event) override;// 事件过滤器
 private:
     void ShowSearch(bool bsearch = false);// 选择展示哪个list
     void AddLBGroup(StateWidget* lb);// 添加至按钮组
+    void handleGlobalMousePress(QMouseEvent *event);// 处理全局鼠标按下
 
     Ui::ChatDialog *ui;
     ChatUIMode _mode;// 模式，side_bar

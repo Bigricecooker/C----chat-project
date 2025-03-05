@@ -7,6 +7,7 @@
 #include <QRandomGenerator>
 #include "chatuserwid.h"
 #include <QDebug>
+#include <QPoint>
 
 ChatDialog::ChatDialog(QWidget *parent)
     : QDialog(parent)
@@ -78,6 +79,9 @@ ChatDialog::ChatDialog(QWidget *parent)
 
     // 链接搜索框输入变化
     connect(ui->search_edit,&QLineEdit::textChanged,this,&ChatDialog::slot_text_changed);
+
+    // 检测鼠标点击的位置判断是否要清空搜索框
+    this->installEventFilter(this);// 安装事务过滤器
 }
 
 ChatDialog::~ChatDialog()
@@ -139,20 +143,32 @@ void ChatDialog::addChatUserList()
     }
 }
 
+bool ChatDialog::eventFilter(QObject *watched, QEvent *event)
+{
+    // 是否是鼠标点击事件
+    if(event->type()==QEvent::MouseButtonPress)
+    {
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+
+        handleGlobalMousePress(mouseEvent);
+    }
+    return QDialog::eventFilter(watched, event);
+}
+
 void ChatDialog::ShowSearch(bool bsearch)
 {
     // chat_user_wid中模式的切换（就是显示一个隐藏另外两个）
-    if(bsearch){
+    if(bsearch){// 搜索模式
         ui->chat_user_list->hide();
         ui->con_user_list->hide();
         ui->search_list->show();
         _mode = ChatUIMode::SearchMode;
-    }else if(_state == ChatUIMode::ChatMode){
+    }else if(_state == ChatUIMode::ChatMode){// 聊天模式
         ui->chat_user_list->show();
         ui->con_user_list->hide();
         ui->search_list->hide();
         _mode = ChatUIMode::ChatMode;
-    }else if(_state == ChatUIMode::ContactMode){
+    }else if(_state == ChatUIMode::ContactMode){// 联系模式
         ui->chat_user_list->hide();
         ui->search_list->hide();
         ui->con_user_list->show();
@@ -211,4 +227,23 @@ void ChatDialog::slot_text_changed(const QString &str)
     {
         ShowSearch(false);
     }
+}
+
+void ChatDialog::handleGlobalMousePress(QMouseEvent *event)
+{
+    // 实现点击位置的判断和处理逻辑
+    // 先判断是否处于搜索模式，如果不处于搜索模式则直接返回
+    if( _mode != ChatUIMode::SearchMode){
+        return;
+    }
+
+    // 获取鼠标点击位置
+    QPoint posInSearchList = ui->search_list->mapFromGlobal(event->globalPos());
+    // 判断位置是否在聊天列表中，不在则清空搜索框
+    if(!ui->search_list->rect().contains(posInSearchList))
+    {
+        ui->search_edit->clear();
+        ShowSearch(false);
+    }
+
 }
