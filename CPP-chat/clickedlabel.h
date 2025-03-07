@@ -29,9 +29,12 @@ public:
     // 鼠标抬起事件
     virtual void mouseReleaseEvent(QMouseEvent* event) override;
 
-    // 设置状态
+    // 设置初始状态
     void SetState(QString normal="", QString hover="", QString press="",
                   QString select="", QString select_hover="", QString select_press="");
+
+    // 设置当前状态
+    bool SetCurState(ClickLbState state);
     // 获取当前的状态
     ClickLbState GetCurState();
 
@@ -49,7 +52,7 @@ private:
 
     ClickLbState _curstate;
 signals:
-    void clicked();// QLabel没有点击事件
+    void clicked(QString, ClickLbState);// QLabel没有点击事件
 };
 
 #endif // CLICKEDLABEL_H

@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     adduseritem.cpp \
+    applyfrined.cpp \
     bubbleframe.cpp \
     chatdialog.cpp \
     chatitembase.cpp \
@@ -19,8 +20,10 @@ SOURCES += \
     chatview.cpp \
     clickedbtn.cpp \
     clickedlabel.cpp \
+    clickedoncelabel.cpp \
     customizeedit.cpp \
     findsuccessdlg.cpp \
+    friendlabel.cpp \
     global.cpp \
     httpmgr.cpp \
     listitembase.cpp \
@@ -37,13 +40,15 @@ SOURCES += \
     tcpmgr.cpp \
     textbubble.cpp \
     timberbtn.cpp \
-    userdata.cpp
+    userdata.cpp \
+    usermgr.cpp
 
 RC_ICONS = QQ.ico
 DESTDIR = ./bin
 
 HEADERS += \
     adduseritem.h \
+    applyfrined.h \
     bubbleframe.h \
     chatdialog.h \
     chatitembase.h \
@@ -53,8 +58,10 @@ HEADERS += \
     chatview.h \
     clickedbtn.h \
     clickedlabel.h \
+    clickedoncelabel.h \
     customizeedit.h \
     findsuccessdlg.h \
+    friendlabel.h \
     global.h \
     httpmgr.h \
     listitembase.h \
@@ -71,14 +78,17 @@ HEADERS += \
     tcpmgr.h \
     textbubble.h \
     timberbtn.h \
-    userdata.h
+    userdata.h \
+    usermgr.h
 
 FORMS += \
     adduseritem.ui \
+    applyfrined.ui \
     chatdialog.ui \
     chatpage.ui \
     chatuserwid.ui \
     findsuccessdlg.ui \
+    friendlabel.ui \
     loadingdlg.ui \
     logindialog.ui \
     mainwindow.ui \

@@ -30,7 +30,7 @@ void ClickedLabel::mousePressEvent(QMouseEvent *event)
             _curstate=ClickLbState::Normal;
             setProperty("state",_normal_press);
         }
-        emit clicked();
+        emit clicked(this->text(), _curstate);
         repolish(this);
         update();
     }
@@ -90,7 +90,7 @@ void ClickedLabel::mouseReleaseEvent(QMouseEvent *event)
             repolish(this);
             update();
         }
-        emit clicked();
+        emit clicked(this->text(), _curstate);
         return;
     }
     // 调用基类的mousePressEvent以保证正常的事件处理
@@ -110,6 +110,21 @@ void ClickedLabel::SetState(QString normal, QString hover, QString press, QStrin
     // 初始未选中，为不可见
     setProperty("state",normal);
     repolish(this);
+}
+
+bool ClickedLabel::SetCurState(ClickLbState state)
+{
+    _curstate=state;
+    if(state==ClickLbState::Normal)
+    {
+        setProperty("state", _normal);
+        repolish(this);
+    }
+    else
+    {
+        setProperty("state", _selected);
+        repolish(this);
+    }
 }
 
 // 获取当前的状态

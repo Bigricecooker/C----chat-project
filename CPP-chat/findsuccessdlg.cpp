@@ -3,6 +3,7 @@
 #include <QDir>
 #include <QPixmap>
 #include <QDebug>
+#include "applyfrined.h"
 
 FindSuccessDlg::FindSuccessDlg(QWidget *parent)
     : QDialog(parent),_parent(parent)
@@ -44,5 +45,11 @@ void FindSuccessDlg::SetSearchInfo(std::shared_ptr<SearchInfo> si)
 
 void FindSuccessDlg::on_add_friend_btn_clicked()
 {
-    // 添加好友界面...
+    // 添加好友界面
+    this->hide();
+    auto applyfrined = new Applyfrined(_parent);
+    applyfrined->SetSearchInfo(_si);
+    applyfrined->setModal(true);
+    applyfrined->show();
+
 }
