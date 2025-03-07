@@ -370,8 +370,27 @@ void Applyfrined::SlotChangeFriendLabelByTip(QString, ClickLbState)
 
 void Applyfrined::SlotLabelTextChange(const QString &text)
 {
+    // 文本变化时判断是否出现提示框
+    if(text.isEmpty())
+    {
+        ui->tip_lb->setText("");
+        ui->input_tip_wid->hide();
+        return;
+    }
 
+    auto iter = std::find(_tip_data.begin(),_tip_data.end(),text);
+    if (iter == _tip_data.end()) {
+        auto new_text = add_prefix + text;
+        ui->tip_lb->setText(new_text);
+        ui->input_tip_wid->show();
+        return;
+    }
+
+    ui->tip_lb->setText(text);
+    ui->input_tip_wid->show();
 }
+
+
 
 void Applyfrined::SlotLabelEditFinished()
 {
