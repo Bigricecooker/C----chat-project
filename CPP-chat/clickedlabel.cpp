@@ -1,7 +1,7 @@
 #include "clickedlabel.h"
 #include <QMouseEvent>
 
-ClickedLabel::ClickedLabel(QWidget *parent):QLabel(parent),_curstate(ClickLbState::Normal)
+ClickedLabel::ClickedLabel(QWidget *parent):QLabel(parent),_curstate(ClickLbState::Normal),m_bug(true)
 {
 
     // 为两个标签设置鼠标悬停时的光标样式,为手样式
@@ -18,6 +18,10 @@ void ClickedLabel::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::LeftButton)
     {
+        if(m_bug==false)
+        {
+            return;
+        }
         if(_curstate==ClickLbState::Normal)
         {
             qDebug()<<"clicked , change to selected hover: "<< _selected_hover;
@@ -31,6 +35,7 @@ void ClickedLabel::mousePressEvent(QMouseEvent *event)
             setProperty("state",_normal_press);
         }
         emit clicked(this->text(), _curstate);
+        qDebug()<<"问题在这？ ";
         repolish(this);
         update();
     }
@@ -131,5 +136,17 @@ bool ClickedLabel::SetCurState(ClickLbState state)
 ClickLbState ClickedLabel::GetCurState()
 {
     return _curstate;
+}
+
+void ClickedLabel::ResetNormalState()
+{
+    _curstate=ClickLbState::Normal;
+    setProperty("state", _normal);
+    repolish(this);
+}
+
+void ClickedLabel::setbug()
+{
+    m_bug=false;
 }
 

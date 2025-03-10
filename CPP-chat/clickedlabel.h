@@ -37,7 +37,10 @@ public:
     bool SetCurState(ClickLbState state);
     // 获取当前的状态
     ClickLbState GetCurState();
+    // 重置为正常状态
+    void ResetNormalState();
 
+    void setbug();
 private:
 
     // 未选中状态
@@ -51,6 +54,8 @@ private:
     QString _selected_press;
 
     ClickLbState _curstate;
+
+    bool m_bug;// 用于解决一个bug
 signals:
     void clicked(QString, ClickLbState);// QLabel没有点击事件
 };

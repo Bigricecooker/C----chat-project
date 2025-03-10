@@ -47,7 +47,7 @@ Applyfrined::Applyfrined(QWidget *parent) :
     connect(ui->lb_ed, &CustomizeEdit::returnPressed, this, &Applyfrined::SlotLabelEnter);// 按下回车后将标签加入展示栏
     connect(ui->lb_ed, &CustomizeEdit::textChanged, this, &Applyfrined::SlotLabelTextChange);// 文本变化后
     connect(ui->lb_ed, &CustomizeEdit::editingFinished, this, &Applyfrined::SlotLabelEditFinished);// 失去焦点后隐藏提示框
-    connect(ui->tip_lb, &ClickedOnceLabel::clicked, this, &Applyfrined::SlotAddFirendLabelByClickTip);// 点击（提示框中的）之后
+    connect(ui->tip_lb, &ClickedOnceLabel::clicked, this, &Applyfrined::SlotAddFirendLabelByClickTip);// 点击（提示框中的标签提示）之后
 
     ui->scrollArea->horizontalScrollBar()->setHidden(true);
     ui->scrollArea->verticalScrollBar()->setHidden(true);
@@ -353,19 +353,32 @@ void Applyfrined::SlotRemoveFriendLabel(QString name)
 
     _friend_labels.erase(find_iter);
 
-    resetLabels();
+    resetLabels();// 重排
 
     auto find_add = _add_labels.find(name);
     if(find_add == _add_labels.end()){
         return;
     }
 
-    //find_add.value()->ResetNormalState();
+    find_add.value()->ResetNormalState();
 }
 
-void Applyfrined::SlotChangeFriendLabelByTip(QString, ClickLbState)
+void Applyfrined::SlotChangeFriendLabelByTip(QString lbtext, ClickLbState state)
 {
-
+    auto find_iter = _add_labels.find(lbtext);
+    if(find_iter == _add_labels.end()){
+        return;
+    }
+    if(state == ClickLbState::Selected){
+        //编写添加逻辑
+        addLabel(lbtext);
+        return;
+    }
+    if(state == ClickLbState::Normal){
+        //编写删除逻辑
+        SlotRemoveFriendLabel(lbtext);
+        return;
+    }
 }
 
 void Applyfrined::SlotLabelTextChange(const QString &text)

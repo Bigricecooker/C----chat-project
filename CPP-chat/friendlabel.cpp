@@ -11,6 +11,7 @@ FriendLabel::FriendLabel(QWidget *parent) :
                            "selected_normal","selected_hover","selected_pressed");
 
     connect(ui->close_lb, &ClickedLabel::clicked, this, &FriendLabel::slot_close);
+    ui->close_lb->setbug();// 防止内存被清除后还调用了鼠标按下事件
 }
 
 FriendLabel::~FriendLabel()
