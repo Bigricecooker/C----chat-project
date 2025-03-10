@@ -117,7 +117,7 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
         // ...
         qDebug()<< "slot addusertip item clicked ";
         _find_dlg = std::make_shared<FindSuccessDlg>(this);
-        auto si = std::make_shared<SearchInfo>(0,"llfc","llfc","hello , my friend!",0);
+        auto si = std::make_shared<SearchInfo>(0,"llfc","llfc","hello , my friend!",0,"");
         qDebug()<< "中间   1"<<si->_name<<"1   ";
         (std::dynamic_pointer_cast<FindSuccessDlg>(_find_dlg))->SetSearchInfo(si);
         _find_dlg->show();

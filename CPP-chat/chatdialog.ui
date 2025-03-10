@@ -298,7 +298,7 @@
        <widget class="SearchList" name="search_list"/>
       </item>
       <item>
-       <widget class="QListView" name="con_user_list"/>
+       <widget class="ContactUserList" name="con_user_list"/>
       </item>
      </layout>
     </widget>
@@ -333,14 +333,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>ClickedBtn</class>
-   <extends>QPushButton</extends>
-   <header location="global">clickedbtn.h</header>
-  </customwidget>
-  <customwidget>
    <class>CustomizeEdit</class>
    <extends>QLineEdit</extends>
    <header location="global">customizeedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ClickedBtn</class>
+   <extends>QPushButton</extends>
+   <header location="global">clickedbtn.h</header>
   </customwidget>
   <customwidget>
    <class>ChatUserList</class>
@@ -363,6 +363,11 @@
    <class>SearchList</class>
    <extends>QListView</extends>
    <header location="global">searchlist.h</header>
+  </customwidget>
+  <customwidget>
+   <class>ContactUserList</class>
+   <extends>QListView</extends>
+   <header location="global">contactuserlist.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
