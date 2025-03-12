@@ -10,6 +10,9 @@ CONFIG += c++17
 
 SOURCES += \
     adduseritem.cpp \
+    applyfrienditem.cpp \
+    applyfriendlist.cpp \
+    applyfriendpage.cpp \
     applyfrined.cpp \
     bubbleframe.cpp \
     chatdialog.cpp \
@@ -51,6 +54,9 @@ DESTDIR = ./bin
 
 HEADERS += \
     adduseritem.h \
+    applyfrienditem.h \
+    applyfriendlist.h \
+    applyfriendpage.h \
     applyfrined.h \
     bubbleframe.h \
     chatdialog.h \
@@ -89,6 +95,8 @@ HEADERS += \
 
 FORMS += \
     adduseritem.ui \
+    applyfrienditem.ui \
+    applyfriendpage.ui \
     applyfrined.ui \
     chatdialog.ui \
     chatpage.ui \
