@@ -1,4 +1,6 @@
 D:\git_repo\C----chat-project\ChatServer\ChatServer\AsioIOServicePool.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\AsioIOServicePool.obj
+D:\git_repo\C----chat-project\ChatServer\ChatServer\ChatGrpcClient.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\ChatGrpcClient.obj
+D:\git_repo\C----chat-project\ChatServer\ChatServer\ChatServiceImpl.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\ChatServiceImpl.obj
 D:\git_repo\C----chat-project\ChatServer\ChatServer\ConfigMgr.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\ConfigMgr.obj
 D:\git_repo\C----chat-project\ChatServer\ChatServer\CServer.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\CServer.obj
 D:\git_repo\C----chat-project\ChatServer\ChatServer\CSession.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\CSession.obj
@@ -9,3 +11,4 @@ D:\git_repo\C----chat-project\ChatServer\ChatServer\message.pb.cc;D:\git_repo\C-
 D:\git_repo\C----chat-project\ChatServer\ChatServer\MsgNode.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\MsgNode.obj
 D:\git_repo\C----chat-project\ChatServer\ChatServer\RedisMgr.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\RedisMgr.obj
 D:\git_repo\C----chat-project\ChatServer\ChatServer\StatusGrpcClient.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\StatusGrpcClient.obj
+D:\git_repo\C----chat-project\ChatServer\ChatServer\UserMgr.cpp;D:\git_repo\C----chat-project\ChatServer\ChatServer\x64\Debug\UserMgr.obj
