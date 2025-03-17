@@ -28,6 +28,9 @@ public:
 	
 	void Send(char* msg, short max_length, short msgid);
 	void Send(std::string msg, short msgid);// 回消息
+
+	void SetUserid(int uid_str);// 设置与该连接绑定的用户id
+	int GetUserid();
 private:
 	void HandleReadHead(const boost::system::error_code& error, size_t  bytes_transferred, std::shared_ptr<CSession> shared_self);// 读取头部回调
 	void HandleRead(const boost::system::error_code& error, size_t bytes_transferred, std::shared_ptr<CSession>shared_self);// 读取消息回调
@@ -46,6 +49,8 @@ private:
 	std::queue<std::shared_ptr<SendNode>> _send_que;// 消息发送队列
 
 	bool _b_close;
+
+	int _userid;
 };
 
 

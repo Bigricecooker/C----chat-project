@@ -17,9 +17,26 @@ using message::StatusService;
 
 
 // 消息服务器信息
-struct ChatServer {
+class ChatServer 
+{
+public:
+    ChatServer() :host(""), port(""), name(""), con_count(0) {}
+    ChatServer(const ChatServer& cs) :host(cs.host), port(cs.port), name(cs.name), con_count(cs.con_count) {}
+    ChatServer& operator=(const ChatServer& cs) {
+        if (&cs == this) {
+            return *this;
+        }
+
+        host = cs.host;
+        name = cs.name;
+        port = cs.port;
+        con_count = cs.con_count;
+        return *this;
+    }
+    std::string name;
     std::string host;
     std::string port;
+    int con_count;// 连接数量
 };
 
 class StatusServiceImpl final : public StatusService::Service
@@ -42,7 +59,7 @@ private:
     ChatServer getChatServer();
 
     std::mutex _mutex;
-    std::vector<ChatServer> _servers;
+    std::unordered_map<std::string, ChatServer> _servers;// 所有聊天服务器信息
     int _server_index;
 };
 

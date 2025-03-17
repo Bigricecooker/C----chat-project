@@ -25,11 +25,14 @@ private:
 	LogicSystem();
 	void DealMsg();// 工作线程执行函数
 	void RegisterCallBacks();// 注册回调函数
+	bool GetBaseInfo(std::string base_key, int uid, std::shared_ptr<UserInfo>& userinfo);// 获取用户信息
+	
 
 	// 回调函数
 	std::map<short, FunCallBack> _fun_callbacks;
 	void LoginHandler(shared_ptr<CSession>, const short& msg_id, const string& msg_data);
 
+	
 	bool _b_stop;
 	std::thread _worker_thread;// 工作线程
 	std::queue<shared_ptr<LogicNode>> _msg_que;// 消息队列
