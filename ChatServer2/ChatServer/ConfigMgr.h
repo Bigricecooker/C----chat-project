@@ -31,6 +31,15 @@ struct SectionInfo {
         // 这里可以添加一些边界检查  
         return _section_datas[key];
     }
+    // 获取值
+    std::string GetValue(const std::string& key)
+    {
+        if (_section_datas.find(key) == _section_datas.end()) {
+            return "";
+        }
+        // 这里可以添加一些边界检查  
+        return _section_datas[key];
+    }
 };
 
 // 读取和管理配置
@@ -69,9 +78,13 @@ public:
         static ConfigMgr cfg_mgr;
         return cfg_mgr;
     }
+
+    // 获取值
+    std::string GetValue(const std::string& section, const std::string& key);
 private:
     // 构造函数里实现config读取
     ConfigMgr();
+
     // 存储section和key-value对的map  
     std::map<std::string, SectionInfo> _config_map;
 };

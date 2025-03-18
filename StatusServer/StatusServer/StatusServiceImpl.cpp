@@ -18,7 +18,7 @@ std::string generate_unique_string() {
 StatusServiceImpl::StatusServiceImpl():_server_index(0)
 {
     auto& cfg = ConfigMgr::Inst();
-    auto server_list = cfg["ChatServer"]["Name"];
+    auto server_list = cfg["chatservers"]["Name"];
 
     std::vector<std::string> words;
 
@@ -32,6 +32,7 @@ StatusServiceImpl::StatusServiceImpl():_server_index(0)
 
     for (auto& word : words)
     {
+        
         if (cfg[word]["Name"].empty())
         {
             continue;

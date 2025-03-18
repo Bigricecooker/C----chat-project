@@ -79,6 +79,16 @@ void CSession::Send(std::string msg, short msgid)
 		bind(&CSession::HandleWrite, this, std::placeholders::_1,  shared_from_this()));
 }
 
+void CSession::SetUserid(int uid_str)
+{
+	_userid = uid_str;
+}
+
+int CSession::GetUserid()
+{
+	return _userid;
+}
+
 void CSession::HandleReadHead(const boost::system::error_code& error, size_t bytes_transferred, std::shared_ptr<CSession> shared_self)
 {
 	auto self = shared_self;

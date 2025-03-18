@@ -206,7 +206,7 @@ bool MysqlDao::UpdatePwd(const std::string& name, const std::string& pwd)
 	}
 }
 
-bool MysqlDao::Checkpwd(const std::string& name, const std::string& pwd, UserInfo& userinfo)
+bool MysqlDao::Checkpwd(const std::string& email, const std::string& pwd, UserInfo& userinfo)
 {
 	// 获取一个连接
 	auto con = _pool->getConnection();
@@ -218,36 +218,32 @@ bool MysqlDao::Checkpwd(const std::string& name, const std::string& pwd, UserInf
 		}
 
 		// 准备查询语句
-		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("SELECT * FROM user WHERE name = ?"));
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("SELECT * FROM user WHERE email = ?"));
 
 		// 绑定参数
-		pstmt->setString(1, name);
+		pstmt->setString(1, email);
 
 		// 执行查询
 		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
 
 		std::string origin_pwd = "";
 		std::string email = "";
+		std::string name = "";
 		int uid = 0;
-		// 遍历结果集并判断
-		while (res->next())
-		{
-			origin_pwd = res->getString("pwd");
-			email = res->getString("email");
-			uid = res->getInt("uid");
-			std::cout << "Check pwd: " << res->getString("pwd") << std::endl;
-			break;
-		}
 
+		// 遍历结果集并判断
 		if (res->next())
 		{
 			origin_pwd = res->getString("pwd");
+			email = res->getString("email");
+			name = res->getString("name");
+			uid = res->getInt("uid");
 			std::cout << "Check pwd: " << origin_pwd << std::endl;
+		}
 
-			if (pwd != origin_pwd) {
-				_pool->returnConnection(std::move(con));
-				return false;
-			}
+		if (pwd != origin_pwd) {
+			_pool->returnConnection(std::move(con));
+			return false;
 		}
 
 		// 只有再有数据是才填充

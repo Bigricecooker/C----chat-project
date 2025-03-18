@@ -1,126 +1,15 @@
-﻿  AsioIOServicePool.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  ChatGrpcClient.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  ChatServiceImpl.cpp
-  ConfigMgr.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  CServer.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  CSession.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\CSession.cpp(44,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\CSession.cpp(64,20): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\CSession.cpp(167,30): warning C4267: “=”: 从“size_t”转换到“short”，可能丢失数据
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(255,82): warning C4267: “参数”: 从“size_t”转换到“short”，可能丢失数据
-  (编译源文件“CSession.cpp”)
-  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(255,82):
-  模板实例化上下文(最早的实例化上下文)为
-  	D:\git_repo\C----chat-project\ChatServer2\ChatServer\CSession.cpp(70,22):
-  	查看对正在编译的函数 模板 实例化“std::shared_ptr<SendNode> std::make_shared<SendNode,const _Elem*,unsigned __int64,short&>(const _Elem *&&,unsigned __int64 &&,short &)”的引用
-          with
-          [
-              _Elem=char
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\memory(2738,46):
-  	查看对正在编译的函数 模板 实例化“std::_Ref_count_obj2<SendNode>::_Ref_count_obj2<_Ty,unsigned __int64,short&>(_Ty &&,unsigned __int64 &&,short &)”的引用
-          with
-          [
-              _Ty=const char *
-          ]
-  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\memory(2062,18):
-  	查看对正在编译的函数 模板 实例化“void std::_Construct_in_place<_Ty,const char*,unsigned __int64,short&>(_Ty &,const char *&&,unsigned __int64 &&,short &) noexcept(false)”的引用
-          with
-          [
-              _Ty=SendNode
-          ]
-  
-  LogicSystem.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
+﻿  ChatServiceImpl.cpp
   main.cpp
   Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
   - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
   - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
   Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  message.grpc.pb.cc
-  message.pb.cc
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(884,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(1141,65): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(1363,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(1659,65): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(1901,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(1908,65): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2195,70): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2238,65): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2245,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2569,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2576,70): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2583,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2823,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(2837,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3075,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3082,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3089,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3338,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3345,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3599,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3606,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3613,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3853,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(3860,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4084,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4091,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4098,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4342,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4349,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4853,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4860,69): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc(4867,67): warning C4244: “=”: 从“google::protobuf::uint64”转换到“google::protobuf::int32”，可能丢失数据
-  MsgNode.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  RedisMgr.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  StatusGrpcClient.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
-  UserMgr.cpp
-  Please define _WIN32_WINNT or _WIN32_WINDOWS appropriately. For example:
-  - add -D_WIN32_WINNT=0x0601 to the compiler command line; or
-  - add _WIN32_WINNT=0x0601 to your project's Preprocessor Definitions.
-  Assuming _WIN32_WINNT=0x0601 (i.e. Windows 7 target).
   正在生成代码...
-D:\git_repo\C----chat-project\ChatServer2\ChatServer\ConfigMgr.h(22,1): warning C4715: “SectionInfo::operator=”: 不是所有的控件路径都返回值
-  LINK : 没有找到 D:\git_repo\C----chat-project\ChatServer2\x64\Debug\ChatServer.exe 或上一个增量链接没有生成它；正在执行完全链接
   ChatServer.vcxproj -> D:\git_repo\C----chat-project\ChatServer2\x64\Debug\ChatServer.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。
   D:\git_repo\C----chat-project\ChatServer2\ChatServer\config.ini
   复制了 1 个文件
-  找不到文件 - *.dll
-  复制了 0 个文件
+  D:\git_repo\C----chat-project\ChatServer2\ChatServer\mysqlcppconn-9-vs14.dll
+  D:\git_repo\C----chat-project\ChatServer2\ChatServer\mysqlcppconn8-2-vs14.dll
+  复制了 2 个文件

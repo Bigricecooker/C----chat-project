@@ -256,6 +256,29 @@ std::string RedisMgr::HGet(const std::string& key, const std::string& hkey)
 	return value;
 }
 
+bool RedisMgr::HDel(const std::string& key, const std::string& field)
+{
+	auto connect = _pool->getConnection();
+	if (connect == nullptr) {
+		return false;
+	}
+
+
+	redisReply* reply = (redisReply*)redisCommand(connect, "HDEL %s %s", key.c_str(), field.c_str());
+	if (reply == nullptr) {
+		std::cerr << "HDEL command failed" << std::endl;
+		return false;
+	}
+
+	bool success = false;
+	if (reply->type == REDIS_REPLY_INTEGER) {
+		success = reply->integer > 0;
+	}
+
+	freeReplyObject(reply);
+	return success;
+}
+
 bool RedisMgr::Del(const std::string& key)
 {
 	auto connect = _pool->getConnection();

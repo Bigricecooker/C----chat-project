@@ -57,6 +57,12 @@
     <ClCompile Include="UserMgr.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="MySqlPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MysqlMgr.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.ini">
@@ -103,9 +109,6 @@
     <ClInclude Include="RedisMgr.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="data.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="ChatServiceImpl.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -113,6 +116,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="UserMgr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MysqlMgr.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MySqlPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

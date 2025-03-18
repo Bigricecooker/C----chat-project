@@ -32,6 +32,8 @@ public:
     bool HSet(const char* key, const char* hkey, const char* hvalue, size_t hvaluelen);
     // 获取哈希表中字段的值
     std::string HGet(const std::string& key, const std::string& hkey);
+    // 删除哈希表中的字段值
+    bool HDel(const std::string& key, const std::string& field);
     // 删除指定的键
     bool Del(const std::string& key);
     // 检查键是否存在

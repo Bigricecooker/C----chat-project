@@ -3,7 +3,6 @@
 #include "message.grpc.pb.h"
 #include "message.pb.h"
 #include <mutex>
-#include "data.h"
 
 using grpc::Server;
 using grpc::ServerBuilder;

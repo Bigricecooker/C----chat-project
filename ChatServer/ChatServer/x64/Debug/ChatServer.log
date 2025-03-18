@@ -1,8 +1,9 @@
-﻿  ChatServiceImpl.cpp
+﻿  LINK : 没有找到 D:\git_repo\C----chat-project\ChatServer\x64\Debug\ChatServer.exe 或上一个增量链接没有生成它；正在执行完全链接
   ChatServer.vcxproj -> D:\git_repo\C----chat-project\ChatServer\x64\Debug\ChatServer.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。
   D:\git_repo\C----chat-project\ChatServer\ChatServer\config.ini
   复制了 1 个文件
-  找不到文件 - *.dll
-  复制了 0 个文件
+  D:\git_repo\C----chat-project\ChatServer\ChatServer\mysqlcppconn-9-vs14.dll
+  D:\git_repo\C----chat-project\ChatServer\ChatServer\mysqlcppconn8-2-vs14.dll
+  复制了 2 个文件

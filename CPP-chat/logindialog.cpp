@@ -69,7 +69,7 @@ void LoginDialog::on_login_Button_clicked()
 
     enableBtn(false);// 设置按钮为不可点击
     QJsonObject json;
-    json["user"]=ui->user_lineEdit->text();
+    json["email"]=ui->user_lineEdit->text();
     json["passwd"]=ui->pass_lineEdit->text();
     HttpMgr::GetInstance()->PostHttpReq(gate_url_prefix+"/user_login",json,ReqId::ID_LOGIN_USER,Modules::LOGINMOD);
 }

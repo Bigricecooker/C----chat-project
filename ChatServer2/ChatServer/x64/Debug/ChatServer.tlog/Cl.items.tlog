@@ -9,6 +9,8 @@ D:\git_repo\C----chat-project\ChatServer2\ChatServer\main.cpp;D:\git_repo\C----c
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.grpc.pb.cc;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\message.grpc.pb.obj
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\message.pb.cc;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\message.pb.obj
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\MsgNode.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\MsgNode.obj
+D:\git_repo\C----chat-project\ChatServer2\ChatServer\MysqlMgr.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\MysqlMgr.obj
+D:\git_repo\C----chat-project\ChatServer2\ChatServer\MySqlPool.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\MySqlPool.obj
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\RedisMgr.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\RedisMgr.obj
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\StatusGrpcClient.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\StatusGrpcClient.obj
 D:\git_repo\C----chat-project\ChatServer2\ChatServer\UserMgr.cpp;D:\git_repo\C----chat-project\ChatServer2\ChatServer\x64\Debug\UserMgr.obj
