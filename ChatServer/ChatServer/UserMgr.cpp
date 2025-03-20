@@ -22,6 +22,7 @@ void UserMgr::SetUserSession(int uid, std::shared_ptr<CSession> session)
 {
 	std::lock_guard<std::mutex> lock(_session_mtx);
 	_uid_to_session[uid] = session;
+	std::cout << "uid " << uid << " bind " << session->_uuid << std::endl;
 }
 
 void UserMgr::RmvUserSession(int uid)

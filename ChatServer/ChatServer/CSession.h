@@ -31,11 +31,12 @@ public:
 
 	void SetUserid(int uid_str);// 设置与该连接绑定的用户id
 	int GetUserid();
+	std::string _uuid;
 private:
 	void HandleReadHead(const boost::system::error_code& error, size_t  bytes_transferred, std::shared_ptr<CSession> shared_self);// 读取头部回调
 	void HandleRead(const boost::system::error_code& error, size_t bytes_transferred, std::shared_ptr<CSession>shared_self);// 读取消息回调
 	void HandleWrite(const boost::system::error_code& error, std::shared_ptr<CSession>shared_self);// 读取消息回调
-	std::string _uuid;
+	
 	tcp::socket _socket;
 	CServer* _server;
 	

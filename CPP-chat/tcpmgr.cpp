@@ -32,10 +32,10 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
         forever
         {
             // 先解析头部
-            if(_b_recv_pending)
+            if(!_b_recv_pending)
             {
                 // 未解析完true
-                if(_buffer.size()<static_cast<int>(sizeof(quint16)*2));
+                if(_buffer.size()<static_cast<int>(sizeof(quint16)*2))
                 {
                     return;// 数据不够
                 }
@@ -44,20 +44,21 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
                 stream>>_message_id>>_message_len;
 
                 // 移除前4个字节的数据
-                _buffer = _buffer.mid(0,sizeof(quint16)*2);
+                _buffer = _buffer.mid(sizeof(quint16)*2);
 
                 // 输出读取的数据
                 qDebug() << "Message ID:" << _message_id << ", Length:" << _message_len;
             }
 
-            // 下次不读取头部了
-            _b_recv_pending = false;
 
             // 开始读取消息体
             if(_buffer.size()<_message_len)
             {
+                _b_recv_pending = true;
                 return;// 数据不够
             }
+
+            _b_recv_pending = false;// 本次读取完成
 
             // 读取消息体
             QByteArray messageBody = _buffer.mid(0, _message_len);
@@ -67,7 +68,7 @@ TcpMgr::TcpMgr():_host(""),_port(0),_b_recv_pending(false),_message_id(0),_messa
             // 处理读到的数据并调用对应的逻辑(相比前几个模块需要对数据做一些处理再调用对应逻辑，因为不一定有发过来的id的处理函数    _handlers[ReqId(_message_id)](ReqId(_message_id),_message_len,messageBody);  )
             handleMsg(ReqId(_message_id),_message_len,messageBody);
 
-            _b_recv_pending = true;// 本次读取完成
+
         }
     });
 

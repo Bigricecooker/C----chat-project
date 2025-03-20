@@ -309,6 +309,7 @@ LogicSystem::LogicSystem()
 
         // »Ø°ü
         std::cout << "succeed to load userinfo uid is " << userinfo.uid << std::endl;
+        std::cout << "chatserver host is " << reply.host() <<" port is "<< reply.port() << std::endl;
         root["error"] = 0;
         root["email"] = email;
         root["uid"] = userinfo.uid;

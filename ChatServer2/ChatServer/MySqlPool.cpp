@@ -274,6 +274,10 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const int& uid)
 
 	try
 	{
+		if (con == nullptr)
+		{
+			return nullptr;
+		}
 		// 准备SQL语句
 		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("SELECT * FROM user WHERE uid = ?"));
 		pstmt->setInt(1, uid); // 将uid替换为你要查询的uid
@@ -282,17 +286,18 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const int& uid)
 		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
 		std::shared_ptr<UserInfo> user_ptr = nullptr;
 		// 遍历结果集
-		while (res->next()) {
+		if(res->next()) 
+		{
 			user_ptr.reset(new UserInfo);
 			user_ptr->pwd = res->getString("pwd");
 			user_ptr->email = res->getString("email");
 			user_ptr->name = res->getString("name");
-			user_ptr->nick = res->getString("nick");
+			// 后面再加
+			/*user_ptr->nick = res->getString("nick");
 			user_ptr->desc = res->getString("desc");
 			user_ptr->sex = res->getInt("sex");
-			user_ptr->icon = res->getString("icon");
+			user_ptr->icon = res->getString("icon");*/
 			user_ptr->uid = uid;
-			break;
 		}
 		return user_ptr;
 	}

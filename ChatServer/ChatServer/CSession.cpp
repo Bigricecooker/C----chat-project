@@ -75,6 +75,7 @@ void CSession::Send(std::string msg, short msgid)
 	// 只有发送队列由空变为1才执行下面
 
 	auto& msg_node = _send_que.front();
+	std::cout << "send data is " << msg_node->_data << " ,data len is " << msg_node->_total_len << std::endl;
 	boost::asio::async_write(_socket, boost::asio::buffer(msg_node->_data, msg_node->_total_len),
 		bind(&CSession::HandleWrite, this, std::placeholders::_1,  shared_from_this()));
 }
@@ -110,6 +111,7 @@ void CSession::HandleReadHead(const boost::system::error_code& error, size_t byt
 			return;
 		}
 
+
 		// 获取id
 		short msg_id = 0;
 		memcpy(&msg_id, _recv_head_node->_data, HEAD_ID_LEN);
@@ -126,7 +128,7 @@ void CSession::HandleReadHead(const boost::system::error_code& error, size_t byt
 		
 		// 获取长度
 		short msg_len = 0;
-		memcpy(&msg_id, _recv_head_node->_data + HEAD_ID_LEN, HEAD_DATA_LEN);
+		memcpy(&msg_len, _recv_head_node->_data + HEAD_ID_LEN, HEAD_DATA_LEN);
 		//网络字节序转化为本地字节序
 		msg_len = boost::asio::detail::socket_ops::network_to_host_short(msg_len);
 		std::cout << "msg_len is " << msg_len << std::endl;
@@ -180,7 +182,7 @@ void CSession::HandleRead(const boost::system::error_code& error, size_t bytes_t
 		// 放入逻辑队列处理
 		LogicSystem::GetInstance()->PostMsgToQue(std::make_shared<LogicNode>(self, _recv_msg_node));
 
-		_recv_msg_node->Clear();
+		
 		// 继续读取头部
 		boost::asio::async_read(_socket, boost::asio::buffer(_recv_head_node->_data, HEAD_TOTAL_LEN),
 			std::bind(&CSession::HandleReadHead, this, std::placeholders::_1, std::placeholders::_2, shared_self));

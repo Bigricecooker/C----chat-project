@@ -136,10 +136,11 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 	Json::Reader reader;
 	Json::Value root;
 	Json::Value returnroot;
+	std::cout << msg_data << std::endl;
 	reader.parse(msg_data, root);
 	auto uid = root["uid"].asInt();
 	auto token = root["token"].asString();
-	std::cout << "user login uid is " << uid << "user token is " << token << std::endl;
+	std::cout << "user login uid is " << uid << " user token is " << token << std::endl;
 	
 
 	//
@@ -147,7 +148,8 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 	//
 
 	// redis中查看token匹配是否正确
-	std::string token_key = USERTOKENPREFIX + uid;
+	std::string uid_str = std::to_string(uid);
+	std::string token_key = USERTOKENPREFIX + uid_str;
 	std::string token_value = "";
 	bool success = RedisMgr::GetInstance()->Get(token_key, token_value);
 	if (!success)
@@ -166,7 +168,6 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 	}
 
 	// 获取用户信息
-	std::string uid_str = std::to_string(uid);
 	std::string base_key = USER_BASE_INFO + uid_str;
 	auto user_info = std::make_shared<UserInfo>();
 	bool b_base = GetBaseInfo(base_key, uid, user_info);
@@ -193,7 +194,7 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 
 
 	// 将登录数增加
-	auto server_name = ConfigMgr::Inst().GetValue("SelfSever", "Name");
+	auto server_name = ConfigMgr::Inst().GetValue("SelfServer", "Name");
 	auto rd_res = RedisMgr::GetInstance()->HGet(LOGIN_COUNT, server_name);
 	int count = 0;
 	if (!rd_res.empty())
