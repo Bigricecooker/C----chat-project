@@ -3,6 +3,7 @@
 #include <QScrollBar>
 #include "tcpmgr.h"
 #include "clickedlabel.h"
+#include "usermgr.h"
 
 
 
@@ -460,7 +461,27 @@ void Applyfrined::SlotAddFirendLabelByClickTip(QString text)
 
 void Applyfrined::SlotApplySure()
 {
+    qDebug()<<"Slot Apply Sure caller";
+    QJsonObject jsonObj;
+    auto uid = UserMgr::GetInstance()->GetUid();
+    jsonObj["uid"]=uid;
+    auto name = ui->name_ed->text();
+    if(name.isEmpty()) name = ui->name_ed->placeholderText();
+    jsonObj["applyname"]=name;
 
+    auto bakname = ui->back_ed->text();
+    if(bakname.isEmpty()) bakname = ui->back_ed->placeholderText();
+    jsonObj["bakname"]=bakname;// 备注名
+    jsonObj["touid"]=_si->_uid;// 对方的uid
+
+
+    QJsonDocument doc(jsonObj);
+    QByteArray jsonData = doc.toJson(QJsonDocument::Compact);
+
+    // 发送tcp请求给chatserver
+    emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_ADD_FRIEND_REQ, jsonData);
+    this->hide();
+    deleteLater();
 }
 
 void Applyfrined::SlotApplyCancel()

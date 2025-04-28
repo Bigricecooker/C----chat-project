@@ -130,6 +130,44 @@ void TcpMgr::initHttpHandlers()
         // 发送信号进入聊天界面
         emit sig_switch_chatdlg();
     });
+
+    // 聊天服务器发来的搜索用户回包
+    _handlers.insert(ReqId::ID_SEARCH_USER_RSP,[this](ReqId id, int len, QByteArray data){
+        qDebug()<< "handle id is "<< id ;
+        // 将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查转换是否成功
+        if(jsonDoc.isNull()){
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+        qDebug()<< "data jsonobj is " << jsonObj ;
+
+        // json格式错误
+        if(!jsonObj.contains("error")){
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Search Failed, err is Json Parse Err" << err ;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        // 失败
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug() << "Search Failed, err is " << err ;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        // 搜索到的信息
+        auto search_info =  std::make_shared<SearchInfo>(jsonObj["uid"].toInt(), jsonObj["name"].toString(),
+                                                        jsonObj["nick"].toString(), jsonObj["desc"].toString(),
+                                                        jsonObj["sex"].toInt(), jsonObj["icon"].toString());
+        emit sig_user_search(search_info);
+    });
 }
 
 // 处理读到的数据并调用对应的逻辑
@@ -162,7 +200,7 @@ void TcpMgr::slot_send_data(ReqId reqId, QByteArray data)
     uint16_t id = reqId;
 
     // 计算长度（使用网络字节序转换）
-    quint16 len = static_cast<quint16>(data.length());
+    quint16 len = static_cast<quint16>(data.size());
 
     // 创建一个QByteArray用于存储要发送的所有数据
     QByteArray block;

@@ -34,3 +34,8 @@ std::shared_ptr<UserInfo> MysqlMgr::GetUser(const int& uid)
 {
 	return _dao.GetUser(uid);
 }
+
+std::shared_ptr<UserInfo> MysqlMgr::GetUser(const string& name)
+{
+	return _dao.GetUser(name);
+}

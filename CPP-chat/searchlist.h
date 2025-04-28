@@ -30,11 +30,11 @@ private:
     void waitPending(bool pending = true);
     bool _send_pending;
     void addTipItem();// 添加条目
-    std::shared_ptr<QDialog> _find_dlg;
+    std::shared_ptr<QDialog> _find_dlg;// 查找后的提示对话框
     QWidget* _search_edit;
     LoadingDlg * _loadingDialog;
 private slots:
-    void slot_item_clicked(QListWidgetItem *item);
+    void slot_item_clicked(QListWidgetItem *item);// item被点击
     void slot_user_search(std::shared_ptr<SearchInfo> si);
 signals:
 };

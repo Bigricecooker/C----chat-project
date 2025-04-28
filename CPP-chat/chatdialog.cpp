@@ -85,6 +85,9 @@ ChatDialog::ChatDialog(QWidget *parent)
 
     // 默认为选中状态
     ui->side_chat_lb->SetSelected(true);
+
+    //为searchlist 设置search edit
+    ui->search_list->SetSearchEdit(ui->search_edit);
 }
 
 ChatDialog::~ChatDialog()

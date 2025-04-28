@@ -3,7 +3,8 @@
 #include <tcpmgr.h>
 #include <adduseritem.h>
 #include "findsuccessdlg.h"
-
+#include "customizeedit.h"
+#include "findfaildlg.h"
 
 SearchList::SearchList(QWidget *parent):QListWidget(parent),_search_edit(nullptr),_send_pending(false)
 {
@@ -28,13 +29,12 @@ void SearchList::CloseFindDlg()
     {
         _find_dlg->hide();
         _find_dlg=nullptr;
-
     }
 }
 
 void SearchList::SetSearchEdit(QWidget *edit)
 {
-
+    _search_edit = edit;
 }
 
 bool SearchList::eventFilter(QObject *watched, QEvent *event)
@@ -63,7 +63,21 @@ bool SearchList::eventFilter(QObject *watched, QEvent *event)
 
 void SearchList::waitPending(bool pending)
 {
-
+    if(pending==true)
+    {
+        _loadingDialog = new LoadingDlg(this);
+        _loadingDialog->setModal(true);
+        _loadingDialog->show();;
+        _send_pending=pending;
+        qDebug()<<"loadingDialog is show";
+    }
+    else
+    {
+        _loadingDialog->hide();
+        _loadingDialog->deleteLater();
+        _send_pending=pending;
+        qDebug()<<"loadingDialog is hide";
+    }
 }
 
 void SearchList::addTipItem()
@@ -114,13 +128,29 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
         return;
     }
     if(itemType == ListItemType::ADD_USER_TIP_ITEM){
-        // ...
-        qDebug()<< "slot addusertip item clicked ";
-        _find_dlg = std::make_shared<FindSuccessDlg>(this);
-        auto si = std::make_shared<SearchInfo>(0,"llfc","llfc","hello , my friend!",0,"");
-        qDebug()<< "中间   1"<<si->_name<<"1   ";
-        (std::dynamic_pointer_cast<FindSuccessDlg>(_find_dlg))->SetSearchInfo(si);
-        _find_dlg->show();
+        if(_send_pending)
+        {
+            return;
+        }
+
+        if(!_search_edit)
+        {
+            return;
+        }
+
+        waitPending(true);
+        auto search_edit = dynamic_cast<CustomizeEdit*>(_search_edit);
+        auto uid_str = search_edit->text();
+        //此处发送请求给server
+        QJsonObject jsonObj;
+        jsonObj["uid"] = uid_str;
+
+        QJsonDocument doc(jsonObj);
+        QByteArray jsonData = doc.toJson(QJsonDocument::Compact);
+
+        // 发送tcp请求给chatserver
+        // 搜索用户信息请求
+        emit TcpMgr::GetInstance()->sig_send_data(ReqId::ID_SEARCH_USER_REQ, jsonData);
         return;
     }
     // 清除弹出框
@@ -129,5 +159,20 @@ void SearchList::slot_item_clicked(QListWidgetItem *item)
 
 void SearchList::slot_user_search(std::shared_ptr<SearchInfo> si)
 {
+    waitPending(false);
+    if (si == nullptr) {
+        _find_dlg = std::make_shared<FindFailDlg>(this);// 基类指针指向子类对象
+    }
+    else
+    {
+        // 两种情况
+        // 已经是好友 todo...
 
+        // 还不是好友
+        _find_dlg =std::make_shared<FindSuccessDlg>(this);
+        std::dynamic_pointer_cast<FindSuccessDlg>(_find_dlg)->SetSearchInfo(si);
+
+    }
+
+    _find_dlg->show();
 }

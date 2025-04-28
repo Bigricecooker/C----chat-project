@@ -45,6 +45,8 @@ public:
 	bool Checkpwd(const std::string& name, const std::string& pwd, UserInfo& userinfo);
 	// uid查询用户信息
 	std::shared_ptr<UserInfo> GetUser(const int& uid);
+	// name查询用户信息
+	std::shared_ptr<UserInfo> GetUser(const std::string& name);
 
 private:
 	std::unique_ptr<MySqlPool> _pool;
