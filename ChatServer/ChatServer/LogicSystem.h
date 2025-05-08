@@ -30,8 +30,9 @@ private:
 
 	// 回调函数
 	std::map<short, FunCallBack> _fun_callbacks;
-	void LoginHandler(shared_ptr<CSession>, const short& msg_id, const string& msg_data);
-	void SearchInfo(shared_ptr<CSession>, const short& msg_id, const string& msg_data);
+	void LoginHandler(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
+	void SearchInfo(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
+	void AddFriendApply(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
 
 
 	bool isPureDigit(const std::string& str);// 判断是否是数字

@@ -353,3 +353,35 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const std::string& name)
 		return nullptr;
 	}
 }
+
+bool MysqlDao::AddFriendApply(const int& from, const int& to)
+{
+	auto con = _pool->getConnection();
+	try 
+	{
+		if (con == nullptr)
+		{
+			return false;
+		}
+
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("INSERT INTO friend_apply (from_uid,to_uid) values(?,?)"
+			"ON DUPLICATE KEY UPDATE from_uid = from_uid,to_uid = to_uid"));
+		pstmt->setInt(1, from);
+		pstmt->setInt(1, to);
+		// Ö´ÐÐ¸üÐÂ
+		int rowAffected = pstmt->executeUpdate();
+		if (rowAffected < 0) {
+			return false;
+		}
+		return true;
+	}
+	catch (sql::SQLException& e)
+	{
+		_pool->returnConnection(std::move(con));
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+	return true;
+}

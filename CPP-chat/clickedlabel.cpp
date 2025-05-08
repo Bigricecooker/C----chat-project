@@ -130,6 +130,7 @@ bool ClickedLabel::SetCurState(ClickLbState state)
         setProperty("state", _selected);
         repolish(this);
     }
+    return true;
 }
 
 // 获取当前的状态

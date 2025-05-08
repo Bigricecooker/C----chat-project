@@ -168,6 +168,40 @@ void TcpMgr::initHttpHandlers()
                                                         jsonObj["sex"].toInt(), jsonObj["icon"].toString());
         emit sig_user_search(search_info);
     });
+
+    // 聊天服务器发来的申请好友回包
+    _handlers.insert(ReqId::ID_SEARCH_USER_RSP,[this](ReqId id, int len, QByteArray data){
+        // 将QByteArray转换为QJsonDocument
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(data);
+
+        // 检查转换是否成功
+        if(jsonDoc.isNull()){
+            qDebug() << "Failed to create QJsonDocument.";
+            return;
+        }
+
+        QJsonObject jsonObj = jsonDoc.object();
+        qDebug()<< "data jsonobj is " << jsonObj ;
+
+        // json格式错误
+        if(!jsonObj.contains("error")){
+            int err = ErrorCodes::ERR_JSON;
+            qDebug() << "Add Friend, err is Json Parse Err" << err ;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        // 失败
+        int err = jsonObj["error"].toInt();
+        if(err != ErrorCodes::SUCCESS){
+            qDebug() << "Add Friend Failed, err is " << err ;
+            emit sig_user_search(nullptr);
+            return;
+        }
+
+        qDebug()<<"Add Friend REQ Success";
+
+    });
 }
 
 // 处理读到的数据并调用对应的逻辑

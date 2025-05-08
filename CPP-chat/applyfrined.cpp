@@ -134,7 +134,11 @@ bool Applyfrined::eventFilter(QObject *obj, QEvent *event)
 
 void Applyfrined::SetSearchInfo(std::shared_ptr<SearchInfo> si)
 {
-    //...
+    _si = si;
+    auto applyname = UserMgr::GetInstance()->GetName();
+    auto bakname = si->_name;
+    ui->name_ed->setText(applyname);
+    ui->back_ed->setText(bakname);
 }
 
 void Applyfrined::resetLabels()
@@ -463,9 +467,9 @@ void Applyfrined::SlotApplySure()
 {
     qDebug()<<"Slot Apply Sure caller";
     QJsonObject jsonObj;
-    auto uid = UserMgr::GetInstance()->GetUid();
+    auto uid = UserMgr::GetInstance()->GetUid();// 自己的uid
     jsonObj["uid"]=uid;
-    auto name = ui->name_ed->text();
+    auto name = ui->name_ed->text();// 自己的名字
     if(name.isEmpty()) name = ui->name_ed->placeholderText();
     jsonObj["applyname"]=name;
 

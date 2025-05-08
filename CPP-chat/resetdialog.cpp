@@ -245,5 +245,6 @@ void ResetDialog::slot_reset_mod_finish(ReqId id, QString res, ErrorCodes err)
 bool ResetDialog::enableBtn(bool enabled)
 {
     //后面再改一下吧
+    return true;
 }
 

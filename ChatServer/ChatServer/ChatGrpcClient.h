@@ -44,6 +44,7 @@ public:
 	void Close();
 
 	std::unique_ptr<ChatService::Stub> getConnection();
+	void returnConnection(std::unique_ptr<ChatService::Stub> context);
 
 private:
 	atomic<bool> _b_stop;

@@ -47,6 +47,8 @@ public:
 	std::shared_ptr<UserInfo> GetUser(const int& uid);
 	// name查询用户信息
 	std::shared_ptr<UserInfo> GetUser(const std::string& name);
+	// 将请求好友数据写入数据库
+	bool AddFriendApply(const int& from, const int& to);
 
 private:
 	std::unique_ptr<MySqlPool> _pool;
