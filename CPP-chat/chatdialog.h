@@ -6,6 +6,7 @@
 #include "statewidget.h"
 #include <QList>
 #include <QMouseEvent>>
+#include "userdata.h"
 /******************************************************************************
  *
  * @file       chatdialog.h
@@ -52,6 +53,9 @@ private slots:
     void slot_side_contact();
 
     void slot_text_changed(const QString &str);
+
+public slots:
+    void slot_apply_friend(std::shared_ptr<AddFriendApply> apply);// 收到好友申请通知
 };
 
 #endif // CHATDIALOG_H

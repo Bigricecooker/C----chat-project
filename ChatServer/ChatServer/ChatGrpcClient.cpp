@@ -94,7 +94,7 @@ ChatGrpcClient::ChatGrpcClient()
 		if (cfg[word]["Name"].empty()) {
 			continue;
 		}
-		// 与其他聊天服务器的连接数据
+		// 与其他聊天服务器的连接数据，每个聊天服务器有5个与其他任意的一个聊天服务器的连接
 		_pools[cfg[word]["Name"]] = std::make_unique<ChatConPool>(5, cfg[word]["Host"], cfg[word]["Port"]);
 	}
 
@@ -104,7 +104,7 @@ ChatGrpcClient::~ChatGrpcClient()
 {
 }
 
-
+ 
 AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFriendReq& req)
 {
 	AddFriendRsp rsp;
@@ -119,6 +119,8 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 	Status status = stub->NotifyAddFriend(&context, req, &rsp);
 	if (!status.ok()) {
 		rsp.set_error(ErrorCodes::RPCFailed);
+		rsp.set_applyuid(req.applyuid());
+		rsp.set_touid(req.touid());
 		return rsp;
 	}
 
@@ -128,8 +130,6 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 	pool->returnConnection(std::move(stub));
 
 	return rsp;
-
-
 
 }
 

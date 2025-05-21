@@ -10,6 +10,7 @@ ApplyFriendItem::ApplyFriendItem(QWidget *parent)
     ui->addBtn->SetState("normal","hover","press");
     ui->addBtn->hide();
 
+    // 连接点击同意按钮信号
     connect(ui->addBtn,&ClickedBtn::clicked,this,[this](){
         emit this->sig_auth_friend(_apply_info);
     });

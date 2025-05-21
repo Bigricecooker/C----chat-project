@@ -91,7 +91,7 @@ void LogicSystem::RegisterCallBacks()
 		std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
 	// 好友申请
-	_fun_callbacks[ID_SEARCH_USER_REQ] = bind(&LogicSystem::AddFriendApply, this,
+	_fun_callbacks[ID_ADD_FRIEND_REQ] = bind(&LogicSystem::AddFriendApply, this,
 		std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 }
 
@@ -193,6 +193,24 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 
 	// 后期获取各种信息...todo
 
+
+	// 从数据库获取申请列表
+	std::vector<std::shared_ptr<ApplyInfo>> apply_list;
+	auto b_apply = GetFrriendApplyInfo(uid, apply_list);
+	if (b_apply) {
+		for (auto& apply : apply_list) {
+			Json::Value obj;
+			obj["name"] = apply->_name;
+			obj["uid"] = apply->_uid;
+			obj["icon"] = apply->_icon;
+			obj["nick"] = apply->_nick;
+			obj["sex"] = apply->_sex;
+			obj["desc"] = apply->_desc;
+			obj["status"] = apply->_status;
+			rtvalue["apply_list"].append(obj);
+		}
+	}
+
 	std::string return_str = rtvalue.toStyledString();
 	session->Send(return_str, MSG_CHAT_LOGIN_RSP);
 
@@ -236,13 +254,15 @@ void LogicSystem::SearchInfo(shared_ptr<CSession> session, const short& msg_id, 
 	std::cout << "user SearchInfo uid is  " << uid_str << endl;
 
 	// 
-	bool b_digit = isPureDigit(uid_str);
+	bool b_digit = isPureDigit(uid_str);// 注意，这里如果收到中文会报错
 	if (b_digit) {
 		GetUserByUid(uid_str, rtvalue);
 	}
 	else {
 		GetUserByName(uid_str, rtvalue);
 	}
+
+	std::cout << "Find the user to finish" << std::endl;
 
 	// 回复
 	std::string return_str = rtvalue.toStyledString();
@@ -282,6 +302,7 @@ void LogicSystem::AddFriendApply(shared_ptr<CSession> session, const short& msg_
 	auto self_name = cfg["SelfServer"]["Name"];
 	if (to_ip_value == self_name)
 	{
+		// 获取对方在该服务器的连接
 		auto session = UserMgr::GetInstance()->GetSession(touid);
 		if (session)
 		{
@@ -298,9 +319,6 @@ void LogicSystem::AddFriendApply(shared_ptr<CSession> session, const short& msg_
 			std::string return_str = notify.toStyledString();
 			session->Send(return_str, ID_NOTIFY_ADD_FRIEND_REQ);
 		}
-		// 回复
-		std::string return_str = rtvalue.toStyledString();
-		session->Send(return_str, ID_ADD_FRIEND_RSP);
 		return;
 	}
 
@@ -465,4 +483,9 @@ void LogicSystem::GetUserByName(std::string name, Json::Value& rtvalue)
 	rtvalue["nick"] = user_info->nick;
 	rtvalue["desc"] = user_info->desc;
 	rtvalue["sex"] = user_info->sex;
+}
+
+bool LogicSystem::GetFrriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list)
+{
+	return MysqlMgr::GetInstance()->GetApplyList(to_uid,list,0,10);
 }

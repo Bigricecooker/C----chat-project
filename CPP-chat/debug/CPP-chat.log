@@ -1,5 +1,5 @@
-﻿  applyfrined.cpp
-D:\git_repo\C----chat-project\CPP-chat\applyfrined.cpp(109,106): warning C4100: “text_height”: 未引用的形参
+﻿  applyfriendpage.cpp
+D:\git_repo\C----chat-project\CPP-chat\applyfriendpage.cpp(56,47): warning C4100: “event”: 未引用的形参
   CPP-chat.vcxproj -> D:\git_repo\C----chat-project\CPP-chat\bin\CPP-chat.exe
   'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
   或批处理文件。

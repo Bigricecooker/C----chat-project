@@ -30,14 +30,15 @@ private:
 
 	// 回调函数
 	std::map<short, FunCallBack> _fun_callbacks;
-	void LoginHandler(shared_ptr<CSession>, const short& msg_id, const string& msg_data);
-	void SearchInfo(shared_ptr<CSession>, const short& msg_id, const string& msg_data);
+	void LoginHandler(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
+	void SearchInfo(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
+	void AddFriendApply(shared_ptr<CSession> session, const short& msg_id, const string& msg_data);
 
 
 	bool isPureDigit(const std::string& str);// 判断是否是数字
 	void GetUserByUid(std::string uid_str, Json::Value& rtvalue);// 通过uid获取用户信息
 	void GetUserByName(std::string name, Json::Value& rtvalue);// 通过名字获取用户信息
-
+	bool GetFrriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list);// 获取申请信息
 	
 	bool _b_stop;
 	std::thread _worker_thread;// 工作线程

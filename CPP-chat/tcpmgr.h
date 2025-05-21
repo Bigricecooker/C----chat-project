@@ -7,6 +7,7 @@
 #include "singleton.h"
 #include "global.h"
 #include "userdata.h"
+#include <QJsonArray>
 
 /******************************************************************************
  *
@@ -52,8 +53,12 @@ signals:
 
     void sig_user_search(std::shared_ptr<SearchInfo> info);// 搜索用户信号
     void sig_auth_rsp(std::shared_ptr<AuthRsp> auth);// 我同意对方的申请
-    void sig_friend_apply(std::shared_ptr<AddFriendApply>);// 同意对方的申请
+    void sig_friend_apply(std::shared_ptr<AddFriendApply>);// 收到对方的申请
     void sig_add_auth_friend(std::shared_ptr<AuthInfo>);// 收到对方的同意 //zhe几个可能有问题
+
+
+    void sig_load_apply_list(QJsonArray json_array);
+
 };
 
 #endif // TCPMGR_H

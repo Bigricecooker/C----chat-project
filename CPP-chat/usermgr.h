@@ -5,6 +5,8 @@
 #include <singleton.h>
 #include "userdata.h"
 #include <vector>
+#include <QJsonArray>
+#include <memory>
 
 
 class UserMgr:public QObject,public Singleton<UserMgr>,
@@ -14,17 +16,20 @@ class UserMgr:public QObject,public Singleton<UserMgr>,
     friend class Singleton<UserMgr>;
 public:
     ~UserMgr();
-
     void SetName(QString name);
     void SetUid(int uid);
     void SetToken(QString token);
     int GetUid();
     QString GetName();
 
-    std::vector<std::shared_ptr<ApplyInfo>> GetApplyList();
-
+    void SetUserInfo(std::shared_ptr<UserInfo> user_info);// 设置用户信息
+    void AppendApplyList(QJsonArray array);// 设置申请列表
+    std::vector<std::shared_ptr<ApplyInfo>> GetApplyList();// 获取申请列表
+    bool AlreadyApply(int uid);// 查看申请列表是否存在该用户的申请
+    void AddApplyList(std::shared_ptr<ApplyInfo> apply);
 private:
     UserMgr();
+    std::shared_ptr<UserInfo> _user_info;
 
     QString _name;
     QString _token;

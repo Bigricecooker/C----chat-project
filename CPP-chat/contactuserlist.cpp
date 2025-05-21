@@ -5,7 +5,7 @@
 #include <QRandomGenerator>
 
 
-ContactUserList::ContactUserList(QWidget *parent):QListWidget(parent)
+ContactUserList::ContactUserList(QWidget *parent):QListWidget(parent),_add_friend_item(nullptr)
 {
     // 关闭滚动条
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -76,7 +76,7 @@ void ContactUserList::addContactUserList()
     item->setFlags(item->flags() & ~Qt::ItemIsSelectable);// 设置item为不可选中
 
     // “新的朋友”条目
-    auto _add_friend_item=new ConUserItem();
+    _add_friend_item=new ConUserItem();
     _add_friend_item->setObjectName("new_friend_item");
     _add_friend_item->SetInfo(0,tr("新的朋友"),":/res/add_friend.png");
     _add_friend_item->SetItemType(APPLY_FRIEND_ITEM);

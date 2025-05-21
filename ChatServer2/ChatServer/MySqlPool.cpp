@@ -353,3 +353,74 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const std::string& name)
 		return nullptr;
 	}
 }
+
+bool MysqlDao::AddFriendApply(const int& from, const int& to)
+{
+	auto con = _pool->getConnection();
+	try 
+	{
+		if (con == nullptr)
+		{
+			return false;
+		}
+
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("INSERT INTO friend_apply (from_uid,to_uid) values(?,?)"
+			"ON DUPLICATE KEY UPDATE from_uid = from_uid,to_uid = to_uid"));
+		pstmt->setInt(1, from);
+		pstmt->setInt(2, to);
+		// 执行更新
+		int rowAffected = pstmt->executeUpdate();
+		if (rowAffected < 0) {
+			return false;
+		}
+		return true;
+	}
+	catch (sql::SQLException& e)
+	{
+		_pool->returnConnection(std::move(con));
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+	return true;
+}
+
+bool MysqlDao::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list, int begin, int limit)
+{
+	auto con = _pool->getConnection();
+	if (con == nullptr) {
+		return false;
+	}
+
+	try {
+		// 准备SQL语句, 根据起始id和限制条数返回列表
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("select apply.from_uid, apply.status, user.name, "
+			"user.nick, user.sex from friend_apply as apply join user on apply.from_uid = user.uid where apply.to_uid = ? "
+			"and apply.id > ? order by apply.id ASC LIMIT ? "));
+
+		pstmt->setInt(1, to_uid); // 将uid替换为你要查询的uid
+		pstmt->setInt(2, begin); // 起始id
+		pstmt->setInt(3, limit); //偏移量
+		// 执行查询
+		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		// 遍历结果集
+		while (res->next()) {
+			auto name = res->getString("name");
+			auto uid = res->getInt("from_uid");
+			auto status = res->getInt("status");
+			auto nick = res->getString("nick");
+			auto sex = res->getInt("sex");
+			auto apply_ptr = std::make_shared<ApplyInfo>(uid, name, "", "", nick, sex, status);
+			list.push_back(apply_ptr);
+		}
+		return true;
+	}
+	catch (sql::SQLException& e) {
+		_pool->returnConnection(std::move(con));
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+}

@@ -8,6 +8,8 @@
 #include "chatuserwid.h"
 #include <QDebug>
 #include <QPoint>
+#include "tcpmgr.h"
+#include "usermgr.h"
 
 ChatDialog::ChatDialog(QWidget *parent)
     : QDialog(parent)
@@ -86,8 +88,11 @@ ChatDialog::ChatDialog(QWidget *parent)
     // 默认为选中状态
     ui->side_chat_lb->SetSelected(true);
 
-    //为searchlist 设置search edit
+    // 为searchlist 设置search edit
     ui->search_list->SetSearchEdit(ui->search_edit);
+
+    // 连接申请好友信号
+    connect(TcpMgr::GetInstance().get(),&TcpMgr::sig_friend_apply,this,&ChatDialog::slot_apply_friend);
 }
 
 ChatDialog::~ChatDialog()
@@ -210,6 +215,22 @@ void ChatDialog::slot_text_changed(const QString &str)
     {
         ShowSearch(false);
     }
+}
+
+void ChatDialog::slot_apply_friend(std::shared_ptr<AddFriendApply> apply)
+{
+    qDebug() << "receive apply friend slot, applyuid is " << apply->_from_uid << " name is "
+             << apply->_name << " desc is " << apply->_desc;
+    // 防止重复申请
+    bool b_already = UserMgr::GetInstance()->AlreadyApply(apply->_from_uid);
+    if(b_already){
+        return;
+    }
+
+    UserMgr::GetInstance()->AddApplyList(std::make_shared<ApplyInfo>(apply));
+    ui->side_contact_lb->ShowRedPoint(true);
+    ui->con_user_list->ShowRedPoint(true);
+    ui->friend_apply_page->AddNewApply(apply);
 }
 
 void ChatDialog::handleGlobalMousePress(QMouseEvent *event)
