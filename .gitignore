@@ -4,4 +4,9 @@
 # 忽略所有目录下的 .vs 文件夹
 **/.vs/
 
+# 忽略所有目录下的 debug 和 release 文件夹
+**/debug/
+**/release/
+**/bulid/
+
 
