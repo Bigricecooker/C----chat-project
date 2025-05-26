@@ -121,6 +121,7 @@ AddFriendRsp ChatGrpcClient::NotifyAddFriend(std::string server_ip, const AddFri
 		rsp.set_error(ErrorCodes::RPCFailed);
 		rsp.set_applyuid(req.applyuid());
 		rsp.set_touid(req.touid());
+		pool->returnConnection(std::move(stub));
 		return rsp;
 	}
 

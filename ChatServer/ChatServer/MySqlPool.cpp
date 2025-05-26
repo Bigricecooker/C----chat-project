@@ -299,6 +299,7 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const int& uid)
 			user_ptr->icon = res->getString("icon");*/
 			user_ptr->uid = uid;
 		}
+		_pool->returnConnection(std::move(con));
 		return user_ptr;
 	}
 	catch (sql::SQLException& e)
@@ -342,6 +343,7 @@ std::shared_ptr<UserInfo> MysqlDao::GetUser(const std::string& name)
 			user_ptr->icon = res->getString("icon");*/
 			user_ptr->uid = res->getInt("uid");
 		}
+		_pool->returnConnection(std::move(con));
 		return user_ptr;
 	}
 	catch (sql::SQLException& e)
@@ -373,6 +375,7 @@ bool MysqlDao::AddFriendApply(const int& from, const int& to)
 		if (rowAffected < 0) {
 			return false;
 		}
+		_pool->returnConnection(std::move(con));
 		return true;
 	}
 	catch (sql::SQLException& e)
@@ -414,6 +417,7 @@ bool MysqlDao::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> 
 			auto apply_ptr = std::make_shared<ApplyInfo>(uid, name, "", "", nick, sex, status);
 			list.push_back(apply_ptr);
 		}
+		_pool->returnConnection(std::move(con));
 		return true;
 	}
 	catch (sql::SQLException& e) {

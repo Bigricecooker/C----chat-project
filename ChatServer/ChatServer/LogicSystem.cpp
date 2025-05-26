@@ -196,7 +196,7 @@ void LogicSystem::LoginHandler(shared_ptr<CSession> session, const short& msg_id
 
 	// 从数据库获取申请列表
 	std::vector<std::shared_ptr<ApplyInfo>> apply_list;
-	auto b_apply = GetFrriendApplyInfo(uid, apply_list);
+	auto b_apply = GetFriendApplyInfo(uid, apply_list);
 	if (b_apply) {
 		for (auto& apply : apply_list) {
 			Json::Value obj;
@@ -485,7 +485,7 @@ void LogicSystem::GetUserByName(std::string name, Json::Value& rtvalue)
 	rtvalue["sex"] = user_info->sex;
 }
 
-bool LogicSystem::GetFrriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list)
+bool LogicSystem::GetFriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list)
 {
 	return MysqlMgr::GetInstance()->GetApplyList(to_uid,list,0,10);
 }
