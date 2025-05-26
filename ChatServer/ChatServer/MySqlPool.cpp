@@ -389,7 +389,7 @@ bool MysqlDao::AddFriendApply(const int& from, const int& to)
 	return true;
 }
 
-bool MysqlDao::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list, int begin, int limit)
+bool MysqlDao::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list, int begin, int limit)
 {
 	auto con = _pool->getConnection();
 	if (con == nullptr) {

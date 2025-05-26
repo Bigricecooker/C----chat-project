@@ -93,6 +93,10 @@ void LogicSystem::RegisterCallBacks()
 	// 好友申请
 	_fun_callbacks[ID_ADD_FRIEND_REQ] = bind(&LogicSystem::AddFriendApply, this,
 		std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+
+	// 好友认证
+	_fun_callbacks[ID_AUTH_FRIEND_REQ] = std::bind(&LogicSystem::AuthFriendApply, this,
+		placeholders::_1, placeholders::_2, placeholders::_3);
 }
 
 bool LogicSystem::GetBaseInfo(std::string base_key, int uid, std::shared_ptr<UserInfo>& userinfo)
@@ -344,6 +348,58 @@ void LogicSystem::AddFriendApply(shared_ptr<CSession> session, const short& msg_
 	session->Send(return_str, ID_ADD_FRIEND_RSP);
 }
 
+void LogicSystem::AuthFriendApply(shared_ptr<CSession> session, const short& msg_id, const string& msg_data)
+{
+	Json::Reader reader;
+	Json::Value  root;
+	reader.parse(msg_data, root);
+
+	auto uid = root["fromuid"].asInt();
+	auto touid = root["touid"].asInt();
+	auto back_name = root["back"].asString();
+	std::cout << "from " << uid << " auth friend to " << touid << std::endl;
+
+	Json::Value rtvalue;
+	rtvalue["error"] = ErrorCodes::Success;
+	auto user_info = std::make_shared<UserInfo>();
+
+	std::string base_key = USER_BASE_INFO + std::to_string(touid);
+	bool b_info = GetBaseInfo(base_key, touid, user_info);
+	if (b_info) {
+		rtvalue["name"] = user_info->name;
+		rtvalue["nick"] = user_info->nick;
+		rtvalue["icon"] = user_info->icon;
+		rtvalue["sex"] = user_info->sex;
+		rtvalue["uid"] = touid;
+	}
+	else {
+		rtvalue["error"] = ErrorCodes::UidInvalid;
+	}
+
+	// 先更新数据库
+	//MysqlMgr::GetInstance()->AuthFriendApply(uid, touid);
+	// 更新数据库添加好友
+	//MysqlMgr::GetInstance()->AddFriend(uid, touid, back_name);
+
+	// 查询redis查找touid对应的server ip
+	auto to_str = std::to_string(touid);
+	auto to_ip_key = USERIPPREFIX + to_str;
+	std::string to_ip_value = "";
+	bool b_ip = RedisMgr::GetInstance()->Get(to_ip_key, to_ip_value);
+	if (!b_ip) {
+		return;
+	}
+
+	auto& cfg = ConfigMgr::Inst();
+	auto self_name = cfg["SelfServer"]["Name"];
+
+	// 在相同服务器
+
+
+	// 不在相同服务器
+
+}
+
 bool LogicSystem::isPureDigit(const std::string& str)
 {
 	for (char c : str)
@@ -485,7 +541,7 @@ void LogicSystem::GetUserByName(std::string name, Json::Value& rtvalue)
 	rtvalue["sex"] = user_info->sex;
 }
 
-bool LogicSystem::GetFriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list)
+bool LogicSystem::GetFriendApplyInfo(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list)
 {
 	return MysqlMgr::GetInstance()->GetApplyList(to_uid,list,0,10);
 }
