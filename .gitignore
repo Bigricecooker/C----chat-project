@@ -7,6 +7,6 @@
 # 忽略所有目录下的 debug 和 release 文件夹
 **/debug/
 **/release/
-**/bulid/
+**/build/
 
 
