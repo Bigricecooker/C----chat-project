@@ -7,6 +7,9 @@
 #include <QList>
 #include <QMouseEvent>>
 #include "userdata.h"
+#include "QListWidgetItem"
+#include <QMap>
+
 /******************************************************************************
  *
  * @file       chatdialog.h
@@ -46,6 +49,7 @@ private:
     ChatUIMode _state;// 状态，chat_user_wid
     bool _b_loading;
     QList<StateWidget*> _lb_list;
+    QMap<int, QListWidgetItem*>_chat_items_added;
 private slots:
     void slot_loading_chat_user();// 滑动滚轮后加载更多联系人
     // 侧边栏切换
@@ -56,6 +60,8 @@ private slots:
 
 public slots:
     void slot_apply_friend(std::shared_ptr<AddFriendApply> apply);// 收到好友申请通知
+    void slot_add_auth_friend(std::shared_ptr<AuthInfo> auth_info);// 收到对方同意添加
+    void slot_auth_rsp(std::shared_ptr<AuthRsp> auth_rsp);// 收到自己同意添加回复
 };
 
 #endif // CHATDIALOG_H

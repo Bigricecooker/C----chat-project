@@ -31,8 +31,8 @@ private:
     void addContactUserList();// 添加好友list
 public slots:
     void slot_item_clicked(QListWidgetItem *item);
-    //     void slot_add_auth_firend(std::shared_ptr<AuthInfo>);
-    //     void slot_auth_rsp(std::shared_ptr<AuthRsp>);
+    void slot_add_auth_friend(std::shared_ptr<AuthInfo> auth_info);// 对方同意后将其加入联系人列表
+    void slot_auth_rsp(std::shared_ptr<AuthRsp> auth_rsp);
 signals:
     void sig_loading_contact_user();// 加载联系好友
     void sig_switch_apply_friend_page();// 切换到申请好友

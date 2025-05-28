@@ -490,5 +490,6 @@ void Applyfrined::SlotApplySure()
 
 void Applyfrined::SlotApplyCancel()
 {
-
+    this->hide();
+    deleteLater();
 }

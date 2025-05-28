@@ -94,7 +94,7 @@ void LogicSystem::RegisterCallBacks()
 	_fun_callbacks[ID_ADD_FRIEND_REQ] = bind(&LogicSystem::AddFriendApply, this,
 		std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
 
-	// 好友认证
+	// 好友认证申请
 	_fun_callbacks[ID_AUTH_FRIEND_REQ] = std::bind(&LogicSystem::AuthFriendApply, this,
 		placeholders::_1, placeholders::_2, placeholders::_3);
 }
@@ -376,10 +376,14 @@ void LogicSystem::AuthFriendApply(shared_ptr<CSession> session, const short& msg
 		rtvalue["error"] = ErrorCodes::UidInvalid;
 	}
 
-	// 先更新数据库
-	//MysqlMgr::GetInstance()->AuthFriendApply(uid, touid);
+	// 发送好友认证回复（客户端返回给自己）
+	std::string return_str = rtvalue.toStyledString();
+	session->Send(return_str, ID_AUTH_FRIEND_RSP);
+
+	// 先更新数据库（将申请状态改为1，即同意）
+	MysqlMgr::GetInstance()->AuthFriendApply(uid, touid);
 	// 更新数据库添加好友
-	//MysqlMgr::GetInstance()->AddFriend(uid, touid, back_name);
+	MysqlMgr::GetInstance()->AddFriend(uid, touid, back_name);
 
 	// 查询redis查找touid对应的server ip
 	auto to_str = std::to_string(touid);
@@ -394,10 +398,45 @@ void LogicSystem::AuthFriendApply(shared_ptr<CSession> session, const short& msg
 	auto self_name = cfg["SelfServer"]["Name"];
 
 	// 在相同服务器
+	if (self_name == to_ip_value)
+	{
+		auto session = UserMgr::GetInstance()->GetSession(touid);
+		if (session)
+		{
+			//在内存中则直接发送通知对方
+			Json::Value  notify;
+			notify["error"] = ErrorCodes::Success;
+			notify["fromuid"] = uid;
+			notify["touid"] = touid;
+			std::string base_key = USER_BASE_INFO + std::to_string(uid);
+			auto user_info = std::make_shared<UserInfo>();
+			bool b_info = GetBaseInfo(base_key, uid, user_info);
+			if (b_info)
+			{
+				notify["name"] = user_info->name;
+				notify["nick"] = user_info->nick;
+				notify["icon"] = user_info->icon;
+				notify["sex"] = user_info->sex;
+			}
+			else
+			{
+				notify["error"] = ErrorCodes::UidInvalid;
+			}
+			std::string return_str = notify.toStyledString();
+			session->Send(return_str, ID_NOTIFY_AUTH_FRIEND_REQ);
+		}
+
+		return;
+	}
 
 
 	// 不在相同服务器
+	AuthFriendReq auth_req;
+	auth_req.set_fromuid(uid);
+	auth_req.set_touid(touid);
 
+	// 发送gRPC通知
+	ChatGrpcClient::GetInstance()->NotifyAuthFriend(to_ip_value, auth_req);
 }
 
 bool LogicSystem::isPureDigit(const std::string& str)

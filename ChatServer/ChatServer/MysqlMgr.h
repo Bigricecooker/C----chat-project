@@ -17,6 +17,8 @@ public:
     std::shared_ptr<UserInfo> GetUser(const int& uid);// uid查询用户信息
     std::shared_ptr<UserInfo> GetUser(const string& name);// name查询用户信息
     bool GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list, int begin, int limit = 10);
+    bool AuthFriendApply(int uid,int touid);
+    bool AddFriend(int uid, int touid, std::string back_name);
 private:
     MysqlMgr();
     MysqlDao  _dao;
