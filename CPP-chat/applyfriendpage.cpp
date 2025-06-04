@@ -42,6 +42,8 @@ void ApplyFriendPage::AddNewApply(std::shared_ptr<AddFriendApply> apply)
     ui->apply_friend_list->insertItem(0,item);
     ui->apply_friend_list->setItemWidget(item, apply_item);
     apply_item->ShowAddBtn(true);
+    auto uid = apply_item->GetUid();
+    _unauth_items[uid] = apply_item;
 
     // 收到同意添加好友信号
     connect(apply_item, &ApplyFriendItem::sig_auth_friend, [this](std::shared_ptr<ApplyInfo> apply_info) {
@@ -84,7 +86,8 @@ void ApplyFriendPage::loadApplyList()
             auto uid = apply_item->GetUid();
             _unauth_items[uid] = apply_item;
         }
-        // 收到同意添加好友信号
+
+        //收到审核好友信号
         connect(apply_item, &ApplyFriendItem::sig_auth_friend, [this](std::shared_ptr<ApplyInfo> apply_info) {
             auto* authFriend = new AuthenFriend(this);
             authFriend->setModal(true);
@@ -92,6 +95,7 @@ void ApplyFriendPage::loadApplyList()
             authFriend->show();
         });
     }
+
     // 模拟假数据，创建QListWidgetItem，并设置自定义的widget
     for(int i = 0; i < 13; i++){
         int randomValue = QRandomGenerator::global()->bounded(100); // 生成0到99之间的随机整数
@@ -127,5 +131,5 @@ void ApplyFriendPage::slot_auth_rsp(std::shared_ptr<AuthRsp> auth_rsp)
         return;
     }
 
-    find_iter->second->ShowAddBtn(false);
+    find_iter->second->ShowAddBtn(false);// 这里没有隐藏成功
 }

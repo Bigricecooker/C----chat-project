@@ -416,7 +416,7 @@ void AuthenFriend::SlotApplySure()
     QJsonObject jsonObj;
     auto uid = UserMgr::GetInstance()->GetUid();
     jsonObj["fromuid"] = uid;
-    jsonObj["touid"] = _apply_info->_uid;
+    jsonObj["touid"] = _apply_info->_uid; // 这里为0了
     QString back_name = "";
     if(ui->back_ed->text().isEmpty()){
         back_name = ui->back_ed->placeholderText();

@@ -255,7 +255,7 @@ void TcpMgr::initHttpHandlers()
         }
 
         // 获取对方（申请添加好友的人）的信息
-        int from_uid = jsonObj["fromuid"].toInt();
+        int from_uid = jsonObj["applyuid"].toInt();// 问题在这,fromuid改为applyuid（服务器发的是applyuid）
         QString name = jsonObj["name"].toString();
         QString desc = jsonObj["desc"].toString();
         QString nick = jsonObj["nick"].toString();

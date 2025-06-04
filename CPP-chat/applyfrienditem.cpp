@@ -38,14 +38,14 @@ void ApplyFriendItem::ShowAddBtn(bool bshow)
 {
     if(bshow)
     {
-        ui->addBtn->hide();
-        ui->already_add_lb->show();
+        ui->addBtn->show();
+        ui->already_add_lb->hide();
         _added=false;
     }
     else
     {
-        ui->addBtn->show();
-        ui->already_add_lb->hide();
+        ui->addBtn->hide();
+        ui->already_add_lb->show();
         _added=true;
     }
 }

@@ -101,14 +101,16 @@ void ContactUserList::addContactUserList()
 
 
     // “联系人”组条目
-    auto groupcon=new GroupTipItem();
+    auto* groupcon=new GroupTipItem();
     groupcon->SetGroupTip(tr("联系人"));
-    QListWidgetItem* item2=new QListWidgetItem();
-    item2->setSizeHint(groupcon->sizeHint());
-    this->addItem(item2);
-    this->setItemWidget(item2,groupcon);
+    _groupitem=new QListWidgetItem();
+    _groupitem->setSizeHint(groupcon->sizeHint());
+    this->addItem(_groupitem);
+    this->setItemWidget(_groupitem,groupcon);
+    _groupitem->setFlags(_groupitem->flags() & ~Qt::ItemIsSelectable);// 禁止用户选择
 
 
+    // 加载后端发来的好友列表
 
     // 创建QListWidgetItem，并设置自定义的widget（模拟数据）
     for(int i = 0; i < 13; i++){

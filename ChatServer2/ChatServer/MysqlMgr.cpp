@@ -45,7 +45,17 @@ std::shared_ptr<UserInfo> MysqlMgr::GetUser(const string& name)
 	return _dao.GetUser(name);
 }
 
-bool MysqlMgr::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list, int begin, int limit)
+bool MysqlMgr::GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list, int begin, int limit)
 {
 	return _dao.GetApplyList(to_uid,list,begin,limit);
+}
+
+bool MysqlMgr::AuthFriendApply(int uid, int touid)
+{
+	return _dao.AuthFriendApply(uid,touid);
+}
+
+bool MysqlMgr::AddFriend(int uid, int touid, std::string back_name)
+{
+	return _dao.AddFriend(uid,touid,back_name);
 }

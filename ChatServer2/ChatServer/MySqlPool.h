@@ -50,8 +50,11 @@ public:
 	// 将请求好友数据写入数据库
 	bool AddFriendApply(const int& from, const int& to);
 	// 获取申请列表
-	bool GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>> list, int begin, int limit);
-
+	bool GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list, int begin, int limit);
+	// 修改申请状态
+	bool AuthFriendApply(int uid, int touid);
+	// 添加好友
+	bool AddFriend(int uid, int touid, std::string back_name);
 private:
 	std::unique_ptr<MySqlPool> _pool;
 };
