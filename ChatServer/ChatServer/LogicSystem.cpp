@@ -434,13 +434,13 @@ void LogicSystem::AuthFriendApply(shared_ptr<CSession> session, const short& msg
 	}
 
 	
-	//// 不在相同服务器
-	//AuthFriendReq auth_req;
-	//auth_req.set_fromuid(uid);
-	//auth_req.set_touid(touid);
+	// 不在相同服务器
+	AuthFriendReq auth_req;
+	auth_req.set_fromuid(uid);
+	auth_req.set_touid(touid);
 
-	//// 发送gRPC通知
-	//ChatGrpcClient::GetInstance()->NotifyAuthFriend(to_ip_value, auth_req);
+	// 发送gRPC通知
+	ChatGrpcClient::GetInstance()->NotifyAuthFriend(to_ip_value, auth_req);
 }
 
 bool LogicSystem::isPureDigit(const std::string& str)
