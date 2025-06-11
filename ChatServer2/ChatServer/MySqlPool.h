@@ -55,6 +55,8 @@ public:
 	bool AuthFriendApply(int uid, int touid);
 	// 添加好友
 	bool AddFriend(int uid, int touid, std::string back_name);
+	// 获取好友列表
+	bool GetFriendList(int uid, std::vector<std::shared_ptr<UserInfo>>& friend_list);
 private:
 	std::unique_ptr<MySqlPool> _pool;
 };

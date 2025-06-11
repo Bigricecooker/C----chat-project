@@ -129,6 +129,12 @@ void TcpMgr::initHttpHandlers()
 
         // 设置获取各种登录信息 todo...
 
+        // 获取好友列表
+        if(jsonObj.contains("friend_list"))
+        {
+            UserMgr::GetInstance()->AppendFriendList(jsonObj["friend_list"].toArray());
+        }
+
         // 获取申请列表
         if(jsonObj.contains("apply_list"))
         {

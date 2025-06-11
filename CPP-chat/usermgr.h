@@ -24,14 +24,22 @@ public:
     QString GetName();
 
     void SetUserInfo(std::shared_ptr<UserInfo> user_info);// 设置用户信息
-    void AppendApplyList(QJsonArray array);// 设置申请列表
+    void AppendApplyList(QJsonArray array);// 设置申请列表数据
+    void AppendFriendList(QJsonArray array);// 设置好友列表数据
     std::vector<std::shared_ptr<ApplyInfo>> GetApplyList();// 获取申请列表
     bool AlreadyApply(int uid);// 查看申请列表是否存在该用户的申请
-    void AddApplyList(std::shared_ptr<ApplyInfo> apply);
+    void AddApplyList(std::shared_ptr<ApplyInfo> apply);// 获取申请列表
     bool CheckFriendById(int uid);// 根据uid检查是否是好友
     void AddFriend(std::shared_ptr<AuthRsp> auth_rsp);
     void AddFriend(std::shared_ptr<AuthInfo> auth_info);// 添加为好友
     std::shared_ptr<FriendInfo> GetFriendById(int uid);// 获取好友信息
+
+    std::vector<std::shared_ptr<FriendInfo>> GetChatListPerPage();
+    bool IsLoadChatFin();// 判断是否加载完了
+    void UpdateChatLoadedCount();
+    std::vector<std::shared_ptr<FriendInfo>> GetConListPerPage();
+    void UpdateContactLoadedCount();
+    bool IsLoadConFin();
     //void AppendFriendChatMsg(int friend_id,std::vector<std::shared_ptr<TextChatData>>);
 private:
     UserMgr();
@@ -43,6 +51,11 @@ private:
 
     std::vector<std::shared_ptr<ApplyInfo>> _apply_list;
     QMap<int, std::shared_ptr<FriendInfo>> _friend_map;
+
+    std::vector<std::shared_ptr<FriendInfo>> _friend_list;
+
+    int _chat_loaded;
+    int _contact_loaded;
 };
 
 #endif // USERMGR_H

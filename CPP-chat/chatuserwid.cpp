@@ -39,3 +39,8 @@ void ChatUserWid::SetInfo(QString name, QString head, QString msg)
     ui->user_name_lb->setText(_name);
     ui->user_chat_lb->setText(_msg);
 }
+
+std::shared_ptr<UserInfo> ChatUserWid::GetUserInfo()
+{
+    return _user_info;
+}

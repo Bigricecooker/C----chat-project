@@ -23,6 +23,8 @@ public:
 protected:
     // 与鼠标悬浮和滚动条有关
     bool eventFilter(QObject *watched, QEvent *event) override;// 安装事件过滤器后，每当一个事件发生时就会调用
+private:
+    bool _load_pending;
 signals:
     void sig_loading_chat_user();
 };

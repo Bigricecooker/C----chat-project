@@ -19,6 +19,7 @@ public:
     bool GetApplyList(int to_uid, std::vector<std::shared_ptr<ApplyInfo>>& list, int begin, int limit = 10);
     bool AuthFriendApply(int uid,int touid);
     bool AddFriend(int uid, int touid, std::string back_name);
+    bool GetFriendList(int uid, std::vector<std::shared_ptr<UserInfo>>& friend_list);// 获取好友列表
 private:
     MysqlMgr();
     MysqlDao  _dao;

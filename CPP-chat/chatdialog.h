@@ -43,15 +43,21 @@ private:
     void ShowSearch(bool bsearch = false);// 选择展示哪个list
     void AddLBGroup(StateWidget* lb);// 添加至按钮组
     void handleGlobalMousePress(QMouseEvent *event);// 处理全局鼠标按下
-
+    void loadMoreConUser();
+    void loadMoreChatUser();
+    void SetSelectChatItem(int uid = 0);
+    void SetSelectChatPage(int uid = 0);
     Ui::ChatDialog *ui;
     ChatUIMode _mode;// 模式，side_bar
     ChatUIMode _state;// 状态，chat_user_wid
     bool _b_loading;
     QList<StateWidget*> _lb_list;
     QMap<int, QListWidgetItem*>_chat_items_added;
+
+    int _cur_chat_uid;// 当前聊天对象的uid
 private slots:
-    void slot_loading_chat_user();// 滑动滚轮后加载更多联系人
+    void slot_loading_chat_user();// 滑动滚轮后加载更多聊天
+    void slot_loading_contact_user();// 滑动滚轮后加载更多联系人
     // 侧边栏切换
     void slot_side_chat();
     void slot_side_contact();
@@ -62,6 +68,7 @@ public slots:
     void slot_apply_friend(std::shared_ptr<AddFriendApply> apply);// 收到好友申请通知
     void slot_add_auth_friend(std::shared_ptr<AuthInfo> auth_info);// 收到对方同意添加
     void slot_auth_rsp(std::shared_ptr<AuthRsp> auth_rsp);// 收到自己同意添加回复
+    void slot_jump_chat_item(std::shared_ptr<SearchInfo> si);
 };
 
 #endif // CHATDIALOG_H

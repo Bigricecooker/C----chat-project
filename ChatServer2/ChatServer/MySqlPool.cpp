@@ -521,3 +521,46 @@ bool MysqlDao::AddFriend(int uid, int touid, std::string back_name)
 		return false;
 	}
 }
+
+bool MysqlDao::GetFriendList(int uid, std::vector<std::shared_ptr<UserInfo>>& friend_list)
+{
+	auto con = _pool->getConnection();
+	if (con == nullptr) {
+		return false;
+	}
+
+	try
+	{
+		// 准备SQL语句, 根据起始id和限制条数返回列表
+		std::unique_ptr<sql::PreparedStatement> pstmt(con->prepareStatement("select * from friend where self_id = ? "));
+
+		pstmt->setInt(1, uid); // 将uid替换为你要查询的uid
+
+		// 执行查询
+		std::unique_ptr<sql::ResultSet> res(pstmt->executeQuery());
+		// 遍历结果集
+		while (res->next()) {
+			auto friend_id = res->getInt("friend_id");
+			auto back = res->getString("back");
+			//再一次查询friend_id对应的信息
+			auto user_info = GetUser(friend_id);
+			if (user_info == nullptr) {
+				continue;
+			}
+
+			user_info->back = user_info->name;
+			friend_list.push_back(user_info);
+		}
+		_pool->returnConnection(std::move(con));
+		return true;
+
+	}
+	catch(sql::SQLException& e)
+	{
+		_pool->returnConnection(std::move(con));
+		std::cerr << "SQLException: " << e.what();
+		std::cerr << " (MySQL error code: " << e.getErrorCode();
+		std::cerr << ", SQLState: " << e.getSQLState() << " )" << std::endl;
+		return false;
+	}
+}
