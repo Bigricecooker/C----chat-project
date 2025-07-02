@@ -33,6 +33,7 @@ public:
     void SetInfo(std::shared_ptr<AuthInfo> auth);
     void SetInfo(std::shared_ptr<AuthRsp> auth);
     void SetInfo(int uid,QString name,QString icon);
+    std::shared_ptr<UserInfo> GetInfo();
 private:
     Ui::ConUserItem *ui;
     std::shared_ptr<UserInfo> _info;

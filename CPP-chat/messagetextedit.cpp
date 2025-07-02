@@ -23,7 +23,7 @@ QVector<MsgInfo> MessageTextEdit::getMsgList()
 {
     mGetMsgList.clear();
 
-    QString doc = this->document()->toPlainText();
+    QString doc = this->document()->toPlainText();// 获取纯文本内容
     QString text="";//存储文本信息
     int indexUrl = 0;
     int count = mMsgList.size();

@@ -3,11 +3,11 @@
 #include <QPixmap>
 
 ConUserItem::ConUserItem(QWidget *parent)
-    : ui(new Ui::ConUserItem),
-    ListItemBase(parent)
+    : ListItemBase(parent),
+    ui(new Ui::ConUserItem)
 {
     ui->setupUi(this);
-    this->SetItemType(CONTACT_USER_ITEM);
+    SetItemType(ListItemType::CONTACT_USER_ITEM);
     ui->red_point->raise();// 将组件移动到最上层
     ShowRedPoint(false);
 }
@@ -71,4 +71,9 @@ void ConUserItem::SetInfo(int uid, QString name, QString icon)
     ui->icon_lb->setScaledContents(true);
 
     ui->user_name_lb->setText(_info->_name);
+}
+
+std::shared_ptr<UserInfo> ConUserItem::GetInfo()
+{
+    return _info;
 }

@@ -175,7 +175,7 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
 
     auto type=base->GetItemType();
 
-    if(type==ListItemType::INVALID_ITEM||ListItemType::GROUP_TIP_ITEM)
+    if(type==ListItemType::INVALID_ITEM||type==ListItemType::GROUP_TIP_ITEM)
     {
         qDebug()<< "slot invalid item clicked ";
         return;
@@ -193,10 +193,10 @@ void ContactUserList::slot_item_clicked(QListWidgetItem *item)
         // 创建对话框，提示用户
         qDebug()<< "contact user item clicked ";
 
-        // auto con_item = qobject_cast<ConUserItem*>(base);
-        // auto user_info = con_item->GetInfo();
-        // //跳转到好友申请界面
-        // emit sig_switch_friend_info_page(user_info);
+        auto con_item = qobject_cast<ConUserItem*>(base);
+        auto user_info = con_item->GetInfo();
+        // 跳转到好友信息界面
+        emit sig_switch_friend_info_page(user_info);
         return;
     }
 }

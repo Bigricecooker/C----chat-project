@@ -26,6 +26,7 @@ public:
     void appendChatItem(QWidget *item);                 //尾插
     void prependChatItem(QWidget *item);                //头插
     void insertChatItem(QWidget *before, QWidget *item);//中间插
+    void removeAllItem();// 移除所有信息
 protected:
     // 与右侧滚动条有关
     bool eventFilter(QObject *o, QEvent *e) override;// 安装事件过滤器

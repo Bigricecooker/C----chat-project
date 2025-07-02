@@ -23,7 +23,7 @@ class SearchList: public QListWidget
 public:
     SearchList(QWidget *parent = nullptr);
     void CloseFindDlg();
-    void SetSearchEdit(QWidget* edit);
+    void SetSearchEdit(QWidget* edit);// 设置对应的搜索框
 protected:
     bool eventFilter(QObject *watched, QEvent *event) override;// 事件过滤器
 private:

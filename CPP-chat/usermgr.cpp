@@ -116,6 +116,16 @@ void UserMgr::AddFriend(std::shared_ptr<AuthInfo> auth_info)
     _friend_map[friend_info->_uid] = friend_info;
 }
 
+std::shared_ptr<FriendInfo> UserMgr::GetFriendById(int uid)
+{
+    auto find_it = _friend_map.find(uid);
+    if(find_it == _friend_map.end()){
+        return nullptr;
+    }
+
+    return *find_it;
+}
+
 std::vector<std::shared_ptr<FriendInfo> > UserMgr::GetChatListPerPage()
 {
     std::vector<std::shared_ptr<FriendInfo>> friend_list;
@@ -208,4 +218,9 @@ bool UserMgr::IsLoadConFin()
     }
 
     return false;
+}
+
+std::shared_ptr<UserInfo> UserMgr::GetUserInfo()
+{
+    return _user_info;
 }

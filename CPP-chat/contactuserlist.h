@@ -36,7 +36,7 @@ public slots:
 signals:
     void sig_loading_contact_user();// 加载联系好友
     void sig_switch_apply_friend_page();// 切换到申请好友
-    void sig_switch_friend_info_page();// 切换好友
+    void sig_switch_friend_info_page(std::shared_ptr<UserInfo> user_info);// 切换好友
 private:
     ConUserItem* _add_friend_item;
     QListWidgetItem * _groupitem;

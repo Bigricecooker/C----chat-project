@@ -77,9 +77,7 @@ background-color:rgb(255,255,255)
 
 
 
-#chat_user_wid{
-    background-color:rgb(0,0,0);
-}
+
 #chat_user_list {
     background-color: rgb(247,247,248);
     border: none;
@@ -101,12 +99,6 @@ background-color:rgb(255,255,255)
 
 
 
-
-
-ChatUserWid {
-    background-color:rgb(247,247,247);
-    border: none;
-}
 #user_chat_lb{
     color:rgb(153,153,153);
     font-size: 12px;
@@ -636,6 +628,58 @@ ApplyFriendItem #addBtn[state='press'] {
    font-size: 14px; /* 设置字体大小 */
    font-family: "Microsoft YaHei"; /* 设置字体 */
    border-radius: 20px; /* 设置圆角 */
+}
+
+#friend_info_page #name_lb {
+    color: #161616;
+    font-size: 18px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+}
+
+#friend_info_page #nick_tip,
+#friend_info_page #nick_lb,
+#friend_info_page #bak_lb,
+#friend_info_page #bak_tip
+{
+    color: #161616;
+    font-size: 14px; /* 设置字体大小 */
+    font-family: "Microsoft YaHei"; /* 设置字体 */
+}
+
+#msg_chat[state='normal'] {
+ border-image: url(:/res/msg_chat_normal.png);
+}
+
+#msg_chat[state='hover'] {
+ border-image: url(:/res/msg_chat_hover.png);
+}
+
+#msg_chat[state='press'] {
+ border-image: url(:/res/msg_chat_press.png);
+}
+
+#video_chat[state='normal'] {
+ border-image: url(:/res/video_chat_normal.png);
+}
+
+#video_chat[state='hover'] {
+ border-image: url(:/res/video_chat_hover.png);
+}
+
+#video_chat[state='press'] {
+ border-image: url(:/res/video_chat_press.png);
+}
+
+#voice_chat[state='normal'] {
+ border-image: url(:/res/voice_chat_normal.png);
+}
+
+#voice_chat[state='hover'] {
+ border-image: url(:/res/voice_chat_hover.png);
+}
+
+#voice_chat[state='press'] {
+ border-image: url(:/res/voice_chat_press.png);
 }
 
 

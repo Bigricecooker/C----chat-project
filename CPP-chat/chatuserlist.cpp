@@ -6,6 +6,7 @@
 
 ChatUserList::ChatUserList(QWidget *parent):QListWidget(parent),_load_pending(false)
 {
+    Q_UNUSED(parent);
     // 关闭自带的滚动条
     this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);// 左右
     this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);// 上下
